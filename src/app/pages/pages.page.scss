@@ -1,0 +1,21 @@
+.block-wrapper {
+  background-color: var(--block-wrapper-bg);
+  border-radius: 10px;
+  padding-bottom: 40px;
+  padding-top: 5px;
+}
+.block-inner {
+  max-width: 1080px;
+  width: 100%;
+  padding: 0 15px;
+}
+ion-slides {
+  background-color: var(--banner-categories-bg);
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+.slider_img img{
+  object-fit: cover;
+  border-radius: 10px;
+}

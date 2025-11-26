@@ -1,0 +1,105 @@
+<app-header title="{{params['title'] || ''}}" [isMain]="false"></app-header>
+<ion-content>
+  <ion-item-group *ngIf="itemProd">
+    <ion-item lines="none">
+      <div class="item_prod_img">
+        <img class="photo" *ngIf="itemProd['image']" [src]="itemProd['image']" (error)="img.src = noimgProd" #img>
+        <img *ngIf="!itemProd['image']" src="{{noimgProd}}" class="photo">
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <div class="ion-padding-vertical item-wrap item-fullw">
+        <div class="item-info">
+          <div class="item-title">
+            <b>{{itemProd['title']}}</b><span class="weightprod"
+                                              *ngIf="itemProd['weight'] && itemProd['weight']!=='0'"> {{itemProd['weight']}}
+            г</span>
+          </div>
+          <div class="modal-product__descr" *ngIf="itemProd['description']">
+            {{itemProd['description']}}
+          </div>
+          <ul class="product-bju"
+              *ngIf="(itemProd['energy_amount']&&itemProd['energy_amount']!=='0')||(itemProd['proteins_amount']&&itemProd['proteins_amount']!=='0')||(itemProd['fat_amount']&&itemProd['fat_amount']!=='0')||(itemProd['carbohydrates_amount']&&itemProd['carbohydrates_amount']!=='0')">
+            <li *ngIf="itemProd['energy_amount']">
+              <span>{{itemProd['energy_amount']| number:'1.0-0' | removeComma}}</span>ккал
+            </li>
+            <li *ngIf="itemProd['proteins_amount']">
+              <span>{{itemProd['proteins_amount']| number:'1.0-0' | removeComma}}</span>белки
+            </li>
+            <li *ngIf="itemProd['fat_amount']"><span>{{itemProd['fat_amount']| number:'1.0-0' | removeComma}}</span>жиры
+            </li>
+            <li *ngIf="itemProd['carbohydrates_amount']">
+              <span>{{itemProd['carbohydrates_amount']| number:'1.0-0' | removeComma}}</span>углеводы
+            </li>
+          </ul>
+          <ion-row class="item-counter ion-justify-content-between ion-align-items-center">
+            <ion-col *ngIf="itemProd['price']!='0'" size="6" class="ion-justify-content-between ion-align-items-center">
+              <ion-text class="price_prod"><b>{{itemProd['price']}} ₽</b></ion-text>
+            </ion-col>
+            <ion-col size="6" class="ion-justify-content-end ion-align-items-center">
+              <app-counter *ngIf="itemProd['count']!==0 && !itemProd['modifierCategories'].length" [id]="itemProd['id']"
+                           [count]="itemProd['count']"></app-counter>
+            </ion-col>
+          </ion-row>
+          <div *ngIf="itemProd['modifierCategories'].length">
+            <form *ngIf="modific" [formGroup]="modific">
+
+              <div *ngFor="let modCat of itemProd['modifierCategories'];">
+                <div *ngIf="modCat['is_active']=='Y'">
+                  <ion-row>
+                    <ion-col size="12" class="product__composition-title">
+                      {{modCat['title']}} <sup *ngIf="modCat['is_required']=='Y'">*</sup>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="modCat['modifiers'].length">
+                    <ion-row *ngFor="let modifitem of modCat['modifiers'];">
+                      <label class="checkbox-container" *ngIf="modifitem['is_active']=='Y'">
+                        <!--<input type="checkbox"  value='"id": {{modifitem.id}},"title": {{modifitem.title}},"price": {{modifitem.price}},"count": 1' (change)="onCheckboxChange($event, 'test'+modCat['id'], modCat['is_required'], modCat['max_amount'], modCat['min_amount'])">-->
+                        <input type="checkbox"  value='{ "id": {{modifitem.id}}, "title": "{{modifitem.title}}","price":{{modifitem.price}},"count": 1 }' (change)="onCheckboxChange($event, 'test'+modCat['id'], modCat['is_required'], modCat['max_amount'], modCat['min_amount'])">
+                        <p>
+                          {{modifitem['title']}}
+                          <span *ngIf="modifitem['price'] && modifitem['price']!=='0'"> + {{modifitem['price']}}
+                            <sup>р</sup></span>
+                          <span class="checkmark"></span>
+                        </p>
+                      </label>
+                      <!--<ion-col *ngIf="modifitem['is_active']=='Y'" size="6">-->
+
+                      <!--</ion-col>-->
+                      <!--<ion-col *ngIf="modifitem['is_active']=='Y'" size="6">-->
+                      <!--{{modifitem['title']}}-->
+                      <!--</ion-col>-->
+                    </ion-row>
+                  </div>
+                </div>
+              </div>
+
+              <ion-row *ngIf="itemProd['modifierCategories'].length" class="ion-align-items-center">
+                <ion-col size="4">
+                  <app-countmodif *ngIf="itemProd['modifierCategories'].length" [id]="itemProd['id']"
+                               [count]="itemProd['count']" (modifSave)="eventCaught($event)"></app-countmodif>
+                </ion-col>
+                <ion-col size="8">
+                  <section class="footer_btn">
+                    <ion-button expand="block" (click)="submitfunc()">
+                      <div class="cart_btn">
+                        <div #PreiceText><ion-text style="text-transform: none;font-size: 16px">Добавить</ion-text></div><div class="loadelem loadspin" #loadingIcon><div class="p-preloader__icon"></div></div>
+                        <ion-text class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{countcur*priceProd}}  <sup>Р</sup>
+                        </ion-text>
+                      </div>
+                    </ion-button>
+                  </section>
+                </ion-col>
+              </ion-row>
+            </form>
+            <!--<div>{{modific.value | json}}</div>-->
+          </div>
+        </div>
+        <!--<ion-row *ngIf="itemProd['count']==0" class="item-counter ion-justify-content-center ion-align-items-center">-->
+        <!--<a class="phone_call" href="tel:{{telcount}}">{{telcountTxt}}</a>-->
+        <!--</ion-row>-->
+      </div>
+    </ion-item>
+  </ion-item-group>
+</ion-content>
+<app-footer></app-footer>

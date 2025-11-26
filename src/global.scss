@@ -1,0 +1,320 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+.header-md::after{
+  display: none;
+}
+.alert-head>h2{
+  color: var(--ion-text-color)!important;
+  font-size: 14px!important;
+}
+ion-radio {
+  margin-right: 15px;
+  appearance: none;
+}
+ion-content{
+  --background: var(--products-bg);
+}
+ion-toolbar{
+  --background: var(--products-bg);
+}
+ion-list{
+  background: var(--products-bg)!important;
+}
+ion-item ion-icon{
+  color: var(--main-color)!important;
+}
+ion-item{
+  --background: var(--products-bg);
+}
+//app-pages{
+//  --background: var(--products-bg);
+//}
+app-header{
+  //--background: var(--header-bg);
+  margin-bottom: -1px;
+}
+//body{
+//  --background: var(--header-bg);
+//}
+.body-text{
+  color:var(--body-text);
+}
+.basket-error {
+  padding-left: 15px;
+  border-left: 2px solid #da2f45;
+  font-size: 14px;
+  line-height: 1.352;
+}
+h1 {
+  color: var(--title);
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 24px;
+}
+ion-button::part(native) {
+  background: var(--main-color);
+  color: var(--basket-bottom-price-text);
+  font-weight: 600;
+  text-transform: none;
+}
+.padding15 {
+  padding: 0 15px;
+}
+*{
+  letter-spacing: normal;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.no_padding{
+  padding: 0;
+}
+.font14{
+  font-size: 14px;
+}
+:focus-visible {
+  outline: none;
+}
+ion-popover::part(content){
+  color: var(--input-color);
+  background: var(--order-box-bg);
+}
+.popover-wrapper::part(content){
+  color: var(--input-color);
+  background: var(--order-box-bg);
+  border-radius: 10px;
+}
+ion-popover ion-list{
+  color: var(--input-color);
+  background: var(--order-box-bg)!important;
+}
+//ion-select-popover ion-list ion-item{
+//  color: var(--input-color);
+//  background: var(--order-box-bg);
+//}
+ion-select-popover ion-list ion-item::part(native){
+  color: var(--input-color);
+  background: var(--order-box-bg);
+}
+ion-select-popover ion-list ion-item.ion-focused::part(native){
+  color: var(--main-color);
+}
+ion-select-popover ion-list ion-item::part(native)::after{
+  background: var(--order-box-bg);
+}
+
+.text-content {
+  font-size: 16px;
+  line-height: 1.625;
+  color: var(--text-content-color);
+}
+
+.text-content h1,
+.text-content h2,
+.text-content h3,
+.text-content h4,
+.text-content h5,
+.text-content h6 {
+  color: var(--title);
+}
+
+.text-content h1 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2; }
+
+.text-content h2 {
+  line-height: 1.2;
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 25px; }
+
+.text-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 25px; }
+
+.text-content h4,
+.text-content h5,
+.text-content h6 {
+  font-size: 14px;
+  margin-bottom: 30px; }
+
+.text-content a {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  color: var(--main-color); }
+
+.text-content span {
+  color: var(--title); }
+
+.text-content p:not(:last-child) {
+  margin-bottom: 30px; }
+
+.text-content table {
+  border-collapse: collapse;
+  width: 100%; }
+
+.text-content table:not(:last-child) {
+  margin-bottom: 30px; }
+
+.text-content table th,
+.text-content table td {
+  border: 1px solid var(--title);
+  font-size: 16px;
+  padding: 15px 25px; }
+
+.text-content table th {
+  font-weight: normal;
+  background-color: var(--products-bg);
+  color:var(--title);
+  border-top: none;
+  border-left: none;
+  text-align: center; }
+.text-content table th:last-child {
+  border-right-color: var(--title); }
+
+.text-content table td {
+  color: var(--title);
+  -webkit-transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  -o-transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  text-align: center; }
+
+.text-content ul:not(:last-child),
+.text-content ol:not(:last-child) {
+  margin-bottom: 30px; }
+
+.text-content ul {
+  padding: 0;
+  list-style: none; }
+.text-content ul ul {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
+.text-content ul > li,
+.text-content ol > li {
+  line-height: 1.2;
+  position: relative;
+  padding-left: 15px; }
+.text-content ul > li:not(:last-child),
+.text-content ol > li:not(:last-child) {
+  margin-bottom: 15px; }
+
+.text-content ul > li:before {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 8px;
+  background: var(--main-color); }
+
+.text-content ol {
+  counter-reset: listCounter; }
+.text-content ol li::marker {
+  font-size: 0; }
+
+.text-content ol > li:before {
+  counter-increment: listCounter;
+  content: counter(listCounter) ".";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--text-content-color); }
+
+.text-content img {
+  max-width: 100%;
+  margin-bottom: 30px;
+  border-radius: 10px; }
+ion-input input {
+  border-width: 2px!important;
+  border-style: solid!important;
+  border-color: var(--header-address-border)!important;
+  border-radius: 10px!important;
+  height: 50px;
+  padding: 0 20px!important;
+  color: var(--input-color)!important;
+}
+ion-input.ion-invalid.has-value input {
+  border-color: #da2f45!important;
+}
+ion-input.ion-invalid.ion-dirty input {
+  border-color: #da2f45!important;
+}
+ion-input.ion-invalid.ion-touched input {
+  border-color: #da2f45!important;
+}
+.errormess ion-text{
+  position: absolute;
+  background: var(--modal-bg);
+  font-size: 12px;
+  bottom: 0;
+  padding: 0 5px;
+  left: 15px;
+  color: #da2f45;
+  white-space: nowrap;
+  z-index: 100;
+}
+.errormess p {
+  background: var(--modal-bg);
+  font-size: 12px;
+  padding: 0 5px;
+  color: #da2f45;
+  white-space: nowrap;
+  z-index: 100;
+  margin: 0;
+}
+.terms {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.352;
+  color: var(--body-text);
+}
+.order__box .text-content h2{
+  margin-top: 0;
+}
+ion-alert{
+  //border-radius: 10px;
+}
+.alert-button{
+  color:var(--main-color)!important;
+}
+.alert-message{
+  color: var(--text-content-color)!important;
+}
+.alert-wrapper{
+  background: var(--modal-bg)!important;
+  border-radius: 10px!important;
+}

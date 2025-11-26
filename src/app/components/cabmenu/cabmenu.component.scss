@@ -1,0 +1,56 @@
+
+.tabs li{
+  padding-bottom: 15px;
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tab-deault);
+}
+.tabs li:not(:last-child) {
+  margin-right: 25px;
+  cursor: pointer;
+}
+.tabs li.current {
+  color: var(--tab-active);
+}
+.personal-area__head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 30px 15px 2px 15px;
+  margin-bottom: 25px;
+  background-color:var(--block-wrapper-bg);
+  border-bottom: 1px solid var(--block-head-border);
+}
+.tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  list-style: none;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+}
+.logout {
+  color: var(--main-color);
+  padding-bottom: 15px;
+}
+.tabs li.current::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 3px;
+  background-color: var(--main-color);
+}

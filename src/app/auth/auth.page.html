@@ -1,0 +1,85 @@
+<app-header title="Авторизация" [isMain]="false" [isCart]="true"></app-header>
+
+<ion-content>
+  <div *ngIf="authorized">
+    авторизован
+  </div>
+  <div *ngIf="!authorized" class="ion-padding">
+    <ion-grid>
+      <div class="order__box">
+        <form [formGroup]="smsru">
+
+          <ion-row>
+            <ion-col size="12">
+              <!--<ion-item>-->
+              <div class="order__box-title">Введите ваш номер телефона</div>
+              <!--<ion-input prefix="+7 " mask="000 000-00-00" formControlName="phone" inputmode="tel" [required]="true" type="tel"></ion-input>-->
+              <ion-input simpleMask="+7 999 999-99-99" formControlName="phone" inputmode="tel" [required]="true"
+                         type="tel" placeholder="+7 999 999-99-99"></ion-input>
+              <!--</ion-item>-->
+              <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.phone">
+                <div class="error-message"
+                     *ngIf="smsru.get('phone').hasError(validation.type) && (smsru.get('phone').dirty || smsru.get('phone').touched)">
+                  <ion-text>{{ validation.message }}</ion-text>
+                </div>
+              </div>
+            </ion-col>
+              <ion-col size="12" *ngIf="!isTimer">
+              <ion-button *ngIf="btnSend" (click)="sendSms()" expand="block">Получить код</ion-button>
+              <div *ngIf="btnSendPreload">
+                <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+                <br>
+              </div>
+            </ion-col>
+            <ion-col size="12" *ngIf="isTimer">
+              <ion-button expand="block">{{counter | formatTime}}</ion-button>
+            </ion-col>
+            <ion-col size="12" *ngIf="isSmsBtn && !isTimer">
+              <ion-button expand="block" (click)="sendSmsReal()">Необходимо отправить SMS?</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+
+        <div *ngIf="btnSmsShow">
+          <form [formGroup]="kodsms">
+            <ion-row>
+              <ion-col size="12">
+                <ion-text *ngIf="!adminUser" class="phone-code">
+                  <b *ngIf="typeSend!=='vk'&&typeSend!=='viber'&&typeSend!=='sms'">Ждите входящий звонок. Введите последние 4 цифры входящего номера</b>
+                  <b *ngIf="typeSend=='vk'">Введите 4 цифры из сообщения, отправленного в ВКонтакте</b>
+                  <b *ngIf="typeSend=='viber'">Введите 4 цифры из сообщения, отправленного в Viber</b>
+                  <b *ngIf="typeSend=='sms'">Введите 4 цифры из SMS сообщения</b>
+                </ion-text>
+                <ion-text *ngIf="adminUser" class="phone-code">Введите код: <strong>7777</strong></ion-text>
+                <!--</ion-col>-->
+                <!--<ion-text *ngIf="tempKod">{{tempKod}}</ion-text>-->
+                <!--<ion-col size="12">-->
+                <!--<div class="order__box-title" style="margin-top: 10px;">Код из СМС*</div>-->
+
+                <ion-input formControlName="smsnumber" inputmode="text" [required]="true" maxlength="4"
+                           type="text" placeholder="Введите код*" style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.smsnumber">
+                  <div class="error-message"
+                       *ngIf="kodsms.get('smsnumber').hasError(validation.type) && (kodsms.get('smsnumber').dirty || kodsms.get('smsnumber').touched)">
+                    <ion-text color="mainapp">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </form>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button *ngIf="btnKodSend" (click)="sendKod()" expand="block">Отправить</ion-button>
+            </ion-col>
+          </ion-row>
+          <div *ngIf="smsSend">
+            <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+            <br>
+          </div>
+        </div>
+      </div>
+    </ion-grid>
+  </div>
+</ion-content>

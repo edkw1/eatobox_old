@@ -1,0 +1,23 @@
+
+ion-menu::part(container) {
+  background: var(--header-bg);
+}
+ion-menu ion-list{
+  background: var(--header-bg);
+}
+.list-ios{
+  padding-top: 15px;
+}
+ion-menu ion-item::part(native) {
+  background: var(--header-bg);
+  color: var(--header-text);
+}
+a{
+  text-decoration: none;
+}
+//ion-menu ion-icon svg path {
+//  stroke: var(--main-color)!important;
+//}
+//.ionicon {
+//  stroke: var(--main-color)!important;
+//}

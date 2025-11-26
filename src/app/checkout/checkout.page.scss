@@ -1,0 +1,132 @@
+ion-select {
+  border-width: 2px!important;
+  border-style: solid!important;
+  border-color: var(--header-address-border);
+  border-radius: 10px!important;
+  height: 50px;
+  padding: 0 20px!important;
+  color: var(--placeholder)!important;
+}
+.order__box .errormess p {
+    background: var(--order-box-bg);
+}
+ion-select.ng-valid{
+  color: var(--text-content-color)!important;
+}
+ion-select.ion-invalid.has-value {
+  border-color: #da2f45!important;
+}
+ion-selectt.ion-invalid.ion-dirty {
+  border-color: #da2f45!important;
+}
+ion-select.ion-invalid.ion-touched {
+  border-color: #da2f45!important;
+}
+.cities_list{
+  list-style: none;
+  width: 100%;
+  //display: none;
+  position: absolute;
+  top: 40px;
+  padding: 10px 20px;
+  z-index: 1000;
+  border-radius: 0 0 10px 10px;
+  background: var(--order-box-bg);
+}
+.cities_list li{
+  padding: 7px 0;
+}
+.cities_list li.none{
+  display: none;
+}
+.ionic-selectable {
+  display: block;
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: var(--header-address-border);
+  border-radius: 10px !important;
+  height: 50px;
+  padding: 0 20px !important;
+  max-width: 45%;
+}
+ion-textarea{
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--header-address-border);
+  border-radius: 10px;
+  //height: 90px;
+  padding: 10px;
+  color: var(--input-color);
+}
+ion-radio-group ion-item::part(native){
+  color: var(--input-color);
+  background: var(--order-box-bg);
+}
+ion-radio.radio-checked::part(container) {
+   border-color: var(--category-active-bg);
+}
+ion-radio::part(mark){
+  background: var(--category-active-bg);
+}
+ion-select::part(placeholder) {
+  opacity: 1;
+}
+//ion-select label{
+//  color: var(--placeholder)!important;
+//}
+ion-input.ion-invalid.has-value input {
+  border-color: #da2f45!important;
+}
+ion-input.ion-invalid.ion-dirty input {
+  border-color: #da2f45!important;
+}
+ion-input.ion-invalid.ion-touched input {
+  border-color: #da2f45!important;
+}
+.order__box{
+  border-radius: 10px;
+  padding: 30px 20px;
+  background-color: var(--order-box-bg);
+  border: 2px solid var(--order-box-border);
+}
+.order__box-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--order-box-title);
+}
+.errormess ion-text{
+  background: var(--order-box-bg);
+}
+.phone-code{
+  font-size: 14px;
+  color: var(--text-content-color);
+}
+ion-label{
+  margin-bottom: 10px;
+  color: var(--body-text);
+}
+ion-toggle {
+  --handle-border-radius: 30px;
+  height: 30px;
+  width: 56px;
+  --handle-height: 28px;
+  --handle-width: 28px;
+  padding-top: 0;
+  padding-bottom: 0;
+  --background: var(--products-bg);
+  --background-checked: var(--main-color);
+  --handle-background: var(--order-box-title);
+  --handle-background-checked: var(--order-box-title);
+}
+div.info{
+  font-size: 12px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--main-color);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--body-text);
+}
+.hideclass {
+  display: none;
+}

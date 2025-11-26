@@ -1,0 +1,23 @@
+<div class="accordion__item">
+  <div class="accordion__head" (click)="toggleAccordion()" [ngClass]="this.isMenuOpen ? 'active' : 'inactive'">
+    <div class="order__date">{{ datezak | date: 'dd.MM.yyyy, HH:mm' }}</div>
+    <div class="order__number" *ngIf="name">№ {{ name }}</div>
+    <div class="order__price" *ngIf="total">{{ total }} <sup>Р</sup></div>
+  </div>
+  <div [ngClass]="this.isMenuOpen ? 'active' : 'inactive'">
+    <!--<div class="accordion__content" [innerHTML]="prodarr">-->
+    <div class="accordion__content" *ngIf="prodarr.length">
+      <ul class="order__list">
+        <li *ngFor="let prod of prodarr;">
+          <div *ngIf="!prod['is_gift']">
+            <div class="dish__name">{{prod['title']}} <span *ngIf="prod['modifiers'].length && prod['modifiers'].length>1" class="txtwhite"><br>(<span *ngFor="let item of prod['modifiers'];"><span *ngIf="item.title" >{{item.title}}<span *ngIf="item.count>1">x{{item.count}}</span>, </span></span>)</span></div>
+            <div class="dish__count" *ngIf="prod['count']">x {{prod['count']}}</div>
+            <div class="dish__count" *ngIf="!prod['count']">x 1</div>
+            <div class="dish__price price">{{prod['price']}}<sup>р</sup></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ion-button *ngIf="prodarr.length" type="button" expand="block" (click)="broadcastName(orderid)">Повторить заказ</ion-button>
+  </div>
+</div>

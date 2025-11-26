@@ -1,0 +1,127 @@
+<app-header [isMenu]="true"></app-header>
+
+<ion-grid [fixed]="true" class="gridhome">
+  <ion-row style="width: 100%;height: 55px;">
+    <ion-col size="12" style="height: 55px;">
+      <ion-segment [scrollable]="true" [(ngModel)]="activeMenu">
+        <div *ngFor="let cat of catListParent" class="segment_wrapper">
+          <ion-segment-button *ngIf="cat['products']" value={{cat.id}} (click)="scrollToLabel(cat.id)" [ngClass]="{'segment-button-checked': cat.id == catListParent[0].id}" >
+            <ion-label class="norm_text">{{cat.title}}</ion-label>
+          </ion-segment-button>
+        </div>
+      </ion-segment>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-content [scrollEvents]="true" (ionScroll)="functionToTriggerOnScroll()">
+  <ion-slides pager="false" *ngIf="slides.length" [options]="slideOptions">
+    <!--<ion-slide tappable *ngFor="let slide of slides" (click)="scrollToLabel('')">-->
+    <ion-slide tappable *ngFor="let slide of slides">
+      <div *ngIf="slide['image']">
+        <!--<a href="{{slide['href']}}"  class="slider_img" *ngIf="slide['href']">-->
+        <!--<img src="{{slide['image']}}" />-->
+        <!--</a>-->
+        <a *ngIf="slide['href']" routerLink="/promo" [queryParams]="{id:slide['href']}" class="slider_img">
+          <!--<a *ngIf="!slide['href'].includes('promotion')" class="slider_img">-->
+          <img src="{{slide['image']}}" />
+        </a>
+        <a *ngIf="!slide['href']" class="slider_img">
+          <!--<a *ngIf="!slide['href'].includes('promotion')" class="slider_img">-->
+          <img src="{{slide['image']}}" />
+        </a>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <ion-item class="searchbar" lines="none">
+    <ion-input placeholder="Введите название товара" type="text" [(ngModel)]="inputValue" id="searchfield" ></ion-input><ion-icon color="mainapp" name="search" slot="end" (click)="getSearchProduct()"></ion-icon>
+  </ion-item>
+  <ion-list *ngIf="searchArr.length">
+    <ion-item lines="none" (click)="clearSearch()">
+      <ion-icon color="mainapp" slot="start" name="sync"></ion-icon><span >Очистить</span>
+    </ion-item>
+    <ion-item lines="none" *ngFor="let itemsearch of searchArr" (click)="goProduct(itemsearch['id'])" >
+      <ion-text color="mainapp">
+        {{itemsearch.title}}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+  <div>
+    <ion-grid *ngIf="!catListParent.length">
+      <ion-row>
+        <ion-col size="6" *ngFor="let i of skeletonArr;">
+          <ion-card >
+            <ion-thumbnail>
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-card-header>
+              <ion-skeleton-text class="skeleton-box" animated></ion-skeleton-text>
+            </ion-card-header>
+
+            <!--<ion-skeleton-text class="ion-margin" animated [ngStyle]="{width: '80%'}"></ion-skeleton-text>-->
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div *ngIf="catListParent.length">
+      <ion-grid *ngFor="let category of catListParent;">
+        <ion-row *ngIf="category.products" id='{{category.id}}'>
+          <ion-col size="12">
+            <ion-item lines="none" class="cat_name">
+              <ion-text class="countprod">{{category.title }} <sup>{{category.products_count}}</sup></ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="category.products">
+          <ion-col size="6" *ngFor="let item of category.products;" id="prod_{{item.id}}">
+            <!--<ion-card  [ngClass]="{'bord_yel': allProd.includes(item['id'].toString())}">-->
+            <ion-card  [ngClass]="{'bord_yel': check(item['id'].toString())}">
+              <div [ngClass]="{'hideclass': selectedIndex == item['id']&&item['recommendations_id'].length>0}">
+                <div class="card_header" [routerLink]="['/product/'+item['id']]" [queryParams]="{title: item.title}">
+                  <img *ngIf="item['image']" src="{{item['image']}}" (error)="img.src = noimg" #img>
+                  <img *ngIf="!item['image']" src="{{noimg}}">
+                  <!--<img *ngIf="item['image']" src="{{noimg}}">-->
+                  <ion-card-header>
+                    <!--<ion-card-subtitle><b>{{ (item['title'].length>6) ? (item['title'] | slice:0:6)+'..':(item['title']) }}</b><br><span class="weightprod">{{item['weight']}} г</span></ion-card-subtitle>-->
+                    <ion-card-subtitle><b class="truncate-text-4">{{item['title']}}</b><span class="weightprod" *ngIf="item['weight'] && item['weight']!=='0'">{{item['weight']}} г</span></ion-card-subtitle>
+                  </ion-card-header>
+                  <!--<ion-item lines="none" *ngIf="modalDataResponse">-->
+                  <!--<p>{{modalDataResponse}}</p>-->
+                  <!--</ion-item>-->
+                </div>
+                <ion-card-content class="price-container">
+                  <app-counter  *ngIf="item['count']!==0 && !item['modifierCategories'].length" [id]="item['id']" [count]="1" [btn]="true" [price]="item['price']" (btnClick)="eventCaught(item['id'], true)"></app-counter>
+                  <app-counter *ngIf="item['count']!==0 && item['modifierCategories'].length" [id]="item['id']" [count]="1" [btn]="true" [link]="true" [price]="item['price']" [routerLink]="['/product/'+item['id']]" [queryParams]="{title: item.title}"></app-counter>
+                </ion-card-content>
+              </div>
+              <div class="card_dop" *ngIf="item['recommendations_id'].length" [ngClass]="{'hideclass' : selectedIndex !== item['id']}">
+                <div class="upsell-prod__head">
+                  <span>Рекомендуем</span>
+                  <div class="icon-close" (click)="eventCaught('-1')"></div>
+                </div>
+                <div class="upsell__items">
+                  <div class="upsell__item" *ngFor="let recommendations of item['recommendations_id']">
+                    <div class="upsell__item-img">
+                      <img *ngIf="recommendations['image']" src="{{recommendations['image']}}" (error)="img.src = noimg" #img>
+                      <img *ngIf="!recommendations['image']" src="{{noimg}}">
+                      <!--<img src="https://mewbas.com/vlada/eatobox/img/product-1.jpg" alt="">-->
+                    </div>
+                    <div class="upsell__item-info">
+                      <div class="upsell__item-name">
+                        {{recommendations.title}} <span *ngIf="recommendations.weight && recommendations['weight']!=='0'"> {{recommendations.weight}} г</span>
+                      </div>
+                      <div class="upsell__item-price">
+                        <app-counter [id]="recommendations['value']" [count]="1" [btn]="true" [price]="recommendations['price']"></app-counter>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

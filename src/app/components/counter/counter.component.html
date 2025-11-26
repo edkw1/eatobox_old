@@ -1,0 +1,23 @@
+<div class="counter ion-align-items-center ion-justify-content-end" *ngIf="!btn">
+  <!--<ion-button class="qtu_btn" color="dark" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, false)"  fill="clear" size="default">-->
+  <!--<ion-icon size="large" color="dark" slot="icon-only" name="remove"></ion-icon>-->
+  <!--</ion-button>-->
+  <!--<div class="counter-quantity"><ion-text>{{quantity}}</ion-text></div>-->
+  <!--<ion-button class="qtu_btn" color="dark" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, true)" fill="clear" size="default">-->
+  <!--<ion-icon size="large" color="dark" slot="icon-only" name="add"></ion-icon>-->
+  <!--</ion-button>-->
+  <button class="qtu_btn remove_btn" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, false)">
+    <ion-icon color="quantity" slot="icon-only" name="remove"></ion-icon>
+  </button>
+  <div class="counter-quantity"><ion-text>{{quantity}}</ion-text></div>
+  <button class="qtu_btn add_btn" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, true)">
+    <ion-icon color="quantity" slot="icon-only" name="add"></ion-icon>
+  </button>
+</div>
+<div class="counter ion-align-items-center btncounter" *ngIf="btn && !link" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, true, true); btnAction()">
+    <div class="priceprod" ><div #PreiceText>{{price}} <sup>Р</sup></div><div class="loadelem loadspin" #loadingIcon><div class="p-preloader__icon"></div></div></div>
+</div>
+<div class="counter ion-align-items-center btncounter" *ngIf="btn && link">
+  <div class="priceprod" ><div #PreiceText>{{price}} <sup>Р</sup></div><div class="loadelem loadspin" #loadingIcon><div class="p-preloader__icon"></div></div></div>
+</div>
+

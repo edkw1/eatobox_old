@@ -1,0 +1,430 @@
+<app-header title="Оформление заказа" [isMain]="false" [isCart]="true"></app-header>
+
+<ion-content>
+  <div *ngIf="authorized" class="ion-padding">
+    <div class="order__box">
+      <div class="order__box-title">Как вы хотите получить заказ?</div>
+      <div class="block-wrapper">
+        <!--<form *ngIf="ordering" [formGroup]="ordering">-->
+          <!--<ion-list class="ion-padding-end">-->
+            <!--<ion-item lines="inset">-->
+              <!--<ion-label position="floating">Номер телефона*</ion-label>-->
+              <!--<ion-input #usertelfield simpleMask="+7 999 999-99-99" formControlName="phone" inputmode="tel"-->
+                         <!--[required]="true" type="tel" placeholder="+7 999 999-99-99"></ion-input>-->
+            <!--</ion-item>-->
+            <!--<div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.phone">-->
+              <!--<div class="error-message"-->
+                   <!--*ngIf="ordering.get('phone').hasError(validation.type) && (ordering.get('phone').dirty || ordering.get('phone').touched)">-->
+                <!--<ion-text color="primary">{{ validation.message }}</ion-text>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</ion-list>-->
+        <!--</form>-->
+
+        <form *ngIf="deliv" [formGroup]="deliv">
+          <!--<ion-list class="ion-padding-end">-->
+          <ion-radio-group (ionChange)="onItemRadio($event)" formControlName="delivery">
+            <ion-item lines="none">
+              <ion-label>Доставка</ion-label>
+              <ion-radio slot="start" value="2"></ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Самовывоз</ion-label>
+              <ion-radio slot="start" value="1"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+          <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.delivery">
+            <div class="error-message"
+                 *ngIf="deliv.get('delivery').hasError(validation.type) && (deliv.get('delivery').dirty || deliv.get('delivery').touched)">
+              <p>{{ validation.message }}</p>
+            </div>
+          </div>
+          <!--</ion-list>-->
+        </form>
+        <form *ngIf="sklad" [formGroup]="sklad">
+          <div *ngIf="userdelivery=='2'">
+            <!--<div *ngIf="adr1||adr2">-->
+            <!--<ion-item lines="none">-->
+            <!--<p>Выберите свой адрес или введите</p>-->
+            <!--</ion-item>-->
+            <!--<ion-item lines="none" *ngIf="adr1">-->
+            <!--<ion-button color="secondary" size="small" (click)="chooseAdr('adr1')">-->
+            <!--<ion-text color="dark">{{adr1}}</ion-text>-->
+            <!--</ion-button>-->
+            <!--</ion-item>-->
+            <!--<ion-item lines="none" *ngIf="adr2">-->
+            <!--<ion-button color="secondary" size="small" (click)="chooseAdr('adr2')">-->
+            <!--<ion-text color="dark">{{adr2}}</ion-text>-->
+            <!--</ion-button>-->
+            <!--</ion-item>-->
+            <!--</div>-->
+            <ion-row>
+              <ion-col size="12">
+                <div class="sel_item" *ngIf="cities.length">
+                  <ion-select formControlName="deliveryadr" (ionChange)="onItemCity($event)" [required]="true" interface="popover" placeholder="Город">
+                    <ion-select-option *ngFor="let storesItem of cities"
+                                       value="{{storesItem['id']}}">{{storesItem['title']}}</ion-select-option>
+                  </ion-select>
+                  <div class="ion-padding-horizontal errormess deliveryadr"
+                       *ngFor="let validation of validationMessages.deliveryadr">
+                    <div class="error-message"
+                         *ngIf="sklad.get('deliveryadr').hasError(validation.type) && (sklad.get('deliveryadr').dirty || sklad.get('deliveryadr').touched)">
+                      <ion-text color="primary">{{ validation.message }}</ion-text>
+                    </div>
+                  </div>
+                </div>
+
+
+              </ion-col>
+              <ion-col size="12" *ngIf="is_iiko">
+                <div class="sel_item" *ngIf="streets.length">
+                  <ionic-selectable
+                  formControlName="iikostreet"
+                  [items]="streets"
+                  placeholder="Улица (без номера дома)"
+                  searchPlaceholder="Поиск улицы"
+                  closeButtonText="Отмена"
+                  itemValueField="id"
+                  itemTextField="title"
+                  [canSearch]="true"
+                  (onSearch)="searchPorts($event)"
+                  >
+                    <ng-template ionicSelectableSearchFailTemplate>
+                    <div class="ion-padding">
+                      Улица не найдена
+                    </div>
+                  </ng-template>
+
+                    <ng-template ionicSelectableTitleTemplate>
+                      <div class="ion-padding">Выберите улицу</div>
+                    </ng-template>
+                    <!--<ng-template ionicSelectableCloseButtonTemplate>-->
+                      <!--<ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>-->
+                    <!--</ng-template>-->
+                  </ionic-selectable>
+                  <!--<ion-input placeholder="Улица (без номера дома)" formControlName="iikostreet" inputmode="text"-->
+                             <!--maxlength="40" type="text" (ionChange)="startSearch($event)"></ion-input>-->
+
+                  <!--<ion-select formControlName="iikostreet" [required]="true" interface="popover" placeholder="Улица (без номера дома)">-->
+                    <!--<ion-select-option *ngFor="let streetsItem of streets"-->
+                                       <!--value="{{streetsItem['id']}}">{{streetsItem['title']}}</ion-select-option>-->
+                  <!--</ion-select>-->
+                  <div class="ion-padding-horizontal errormess"
+                       *ngFor="let validation of validationMessages.iikostreet">
+                    <div class="error-message"
+                         *ngIf="sklad.get('iikostreet').hasError(validation.type) && (sklad.get('iikostreet').dirty || sklad.get('iikostreet').touched)">
+                      <ion-text color="primary">{{ validation.message }}</ion-text>
+                    </div>
+                  </div>
+                  <!--<ul class="cities_list">-->
+                    <!--<li>30 лет </li>-->
+                    <!--<li>30 лет </li>-->
+                    <!--<li>30 лет </li>-->
+                    <!--<li>30 лет </li>-->
+                    <!--<li *ngFor="let streetsItem of streets" (click)="chooseStreet(streetsItem['title']);" >{{streetsItem['title']}}</li>-->
+                  <!--</ul>-->
+                </div>
+                <div class="sel_item" *ngIf="!streets.length">
+                  <ion-input placeholder="Улица (без номера дома)" formControlName="iikostreet" inputmode="text"
+                             maxlength="40" type="text"></ion-input>
+                  <div class="ion-padding-horizontal errormess"
+                       *ngFor="let validation of validationMessages.iikostreet">
+                    <div class="error-message"
+                         *ngIf="sklad.get('iikostreet').hasError(validation.type) && (sklad.get('iikostreet').dirty || sklad.get('iikostreet').touched)">
+                      <ion-text color="primary">{{ validation.message }}</ion-text>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="12" *ngIf="!is_iiko">
+                <ion-input placeholder="Улица (без номера дома)" formControlName="delstreet" inputmode="text"
+                           minlength="4" maxlength="60" [required]="true" type="text"
+                           style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.delstreet">
+                  <div class="error-message"
+                       *ngIf="sklad.get('delstreet').hasError(validation.type) && (sklad.get('delstreet').dirty || sklad.get('delstreet').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-input placeholder="Дом" formControlName="delhouse" inputmode="text" maxlength="60" type="text"
+                           style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.delhouse">
+                  <div class="error-message"
+                       *ngIf="sklad.get('delhouse').hasError(validation.type) && (sklad.get('delhouse').dirty || sklad.get('delhouse').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input placeholder="Квартира/Офис" formControlName="delappart" inputmode="text" maxlength="60"
+                           type="text" style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.delappart">
+                  <div class="error-message"
+                       *ngIf="sklad.get('delappart').hasError(validation.type) && (sklad.get('delappart').dirty || sklad.get('delappart').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-input placeholder="Подъезд" formControlName="entrance" inputmode="text" maxlength="20" type="text"
+                           style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.entrance">
+                  <div class="error-message"
+                       *ngIf="sklad.get('entrance').hasError(validation.type) && (sklad.get('entrance').dirty || sklad.get('entrance').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input placeholder="Этаж" formControlName="floor" inputmode="text" maxlength="20"
+                           type="text" style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.floor">
+                  <div class="error-message"
+                       *ngIf="sklad.get('floor').hasError(validation.type) && (sklad.get('floor').dirty || sklad.get('floor').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+
+
+            <!--<ion-item lines="none">-->
+            <!--<ion-label position="stacked">Дом</ion-label>-->
+            <!--<ion-input formControlName="delhouse" inputmode="text" maxlength="60" type="text"></ion-input>-->
+            <!--</ion-item>-->
+            <!--<ion-item lines="none">-->
+            <!--<ion-label position="stacked">Квартира/Офис</ion-label>-->
+            <!--<ion-input formControlName="delappart" inputmode="text" maxlength="60" type="text"></ion-input>-->
+            <!--</ion-item>-->
+          </div>
+
+
+
+          <ion-row *ngIf="userdelivery=='1'">
+            <ion-col size="12">
+              <div class="sel_item" *ngIf="cities.length">
+                <ion-select (ionChange)="onItemPoints($event)" formControlName="skladname" [required]="true"
+                            interface="popover" placeholder="Город" value="1">
+                  <ion-select-option *ngFor="let storesItem of cities"
+                                     value="{{storesItem['id']}}">{{storesItem['title']}}</ion-select-option>
+                </ion-select>
+                <div class="ion-padding-horizontal errormess"
+                     *ngFor="let validation of validationMessages.skladname">
+                  <div class="error-message"
+                       *ngIf="sklad.get('skladname').hasError(validation.type) && (sklad.get('skladname').dirty || sklad.get('skladname').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <div class="sel_item" *ngIf="points.length">
+                <ion-select formControlName="pointname" [required]="true" interface="popover" placeholder="Где забрать">
+                  <ion-select-option *ngFor="let pointsItem of points"
+                                     value="{{pointsItem['id']}}">{{pointsItem['title']}}</ion-select-option>
+                </ion-select>
+                <div class="ion-padding-horizontal errormess"
+                     *ngFor="let validation of validationMessages.pointname">
+                  <div class="error-message"
+                       *ngIf="sklad.get('pointname').hasError(validation.type) && (sklad.get('pointname').dirty || sklad.get('pointname').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="authorized" class="ion-padding">
+    <div class="order__box">
+      <div class="order__box-title">Способ оплаты</div>
+      <div class="block-wrapper">
+
+        <form *ngIf="oplata" [formGroup]="oplata">
+          <div class="ion-padding-end" *ngIf="oplatashow">
+            <ion-radio-group (ionChange)="onMoneyRadio($event)" formControlName="varpay" [required]="true">
+              <ion-item lines="none">
+                <ion-label>Наличные</ion-label>
+                <ion-radio slot="start" value="1"></ion-radio>
+              </ion-item>
+
+              <ion-item lines="none">
+                <ion-label>Банковская карта</ion-label>
+                <ion-radio slot="start" value="2"></ion-radio>
+              </ion-item>
+              <!--<ion-item *ngIf="cashPay" lines="none">-->
+                <!--<ion-label>{{cashPay.title}}</ion-label>-->
+                <!--<ion-radio slot="start" value="{{cashPay.id}}"></ion-radio>-->
+              <!--</ion-item>-->
+
+              <!--<ion-item *ngIf="cardPay" lines="none">-->
+                <!--<ion-label>{{cardPay.title}}</ion-label>-->
+                <!--<ion-radio slot="start" value="{{cardPay.id}}"></ion-radio>-->
+              <!--</ion-item>-->
+
+            </ion-radio-group>
+            <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.varpay">
+              <div class="error-message"
+                   *ngIf="oplata.get('varpay').hasError(validation.type) && (oplata.get('varpay').dirty || oplata.get('varpay').touched)">
+                <p>{{ validation.message }}</p>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form *ngIf="money" [formGroup]="money">
+          <ion-col size="12" *ngIf="cashPay && sposoboplat==cashPay.id">
+            <ion-input placeholder="Требуется сдача с" formControlName="moneyval" inputmode="text"
+                       maxlength="20" type="text"></ion-input>
+            <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.moneyval">
+              <div class="error-message"
+                   *ngIf="money.get('moneyval').hasError(validation.type) && (money.get('moneyval').dirty || money.get('moneyval').touched)">
+                <ion-text color="primary">{{ validation.message }}</ion-text>
+              </div>
+            </div>
+          </ion-col>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="promo && !is_iiko" class="ion-padding">
+    <div class="order__box">
+      <div class="order__box-title">Промокод</div>
+      <div class="block-wrapper">
+        <form *ngIf="promo" [formGroup]="promo">
+          <div class="ion-padding-end">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-input inputmode="text" type="text" formControlName="promovalform" maxlength="10" minlength="4"  style="margin-top: 10px;" placeholder="Введите промокод"></ion-input>
+                  <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.promovalform">
+                    <div class="error-message"
+                         *ngIf="promo.get('promovalform').hasError(validation.type) && (promo.get('promovalform').dirty || promo.get('promovalform').touched)">
+                      <ion-text color="primary">{{ validation.message }}</ion-text>
+                    </div>
+                  </div>
+
+                </ion-col>
+                <ion-button (click)="getPromo()" *ngIf="!isLoadingPromo" expand="block" style="width: 100%">Проверить</ion-button>
+                <ion-button (click)="getPromo()" *ngIf="isLoadingPromo" expand="block" style="width: 100%">Отправка данных...</ion-button>
+                <ion-button (click)="clearPromo()" *ngIf="!isLoadingPromo && isCancelPromo" expand="block" style="width: 100%">Отменить промокод</ion-button>
+              </ion-row>
+              <!--</div>-->
+              <!--<ion-row *ngIf="!bonusval">-->
+              <!--<ion-col size="12">-->
+              <!--<small>Информация о бонусах обновляется</small>-->
+              <!--</ion-col>-->
+              <!--</ion-row>-->
+            </ion-grid>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--<div class="ion-padding">-->
+    <!--<div class="order__box">-->
+      <!--<div class="order__box-title">ТЕСТ</div>-->
+      <!--<div class="block-wrapper">-->
+        <!--<ion-button expand="block" (click)="checkOrder()">CALCULATE</ion-button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <div *ngIf="bonus" class="ion-padding">
+    <div class="order__box">
+      <div class="order__box-title">Бонусы</div>
+      <div class="block-wrapper">
+        <form *ngIf="bonus" [formGroup]="bonus">
+          <div class="ion-padding-end" *ngIf="bonusval">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-label >У вас {{bonusval}} бонусов</ion-label>
+                <ion-input inputmode="number" [step]="1" type="number" formControlName="bonusvalform" min="0" max="{{max_bonusesval}}" style="margin-top: 10px;"></ion-input>
+                <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.bonusvalform">
+                  <div class="error-message"
+                       *ngIf="bonus.get('bonusvalform').hasError(validation.type) && (bonus.get('bonusvalform').dirty || bonus.get('bonusvalform').touched)">
+                    <ion-text color="primary">{{ validation.message }}</ion-text>
+                  </div>
+                </div>
+
+              </ion-col>
+              <ion-label >Максимум для списания {{max_bonusesval}} бонусов</ion-label>
+            </ion-row>
+          <!--</div>-->
+          <!--<ion-row *ngIf="!bonusval">-->
+            <!--<ion-col size="12">-->
+            <!--<small>Информация о бонусах обновляется</small>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+            </ion-grid>
+          </div>
+          <div class="ion-padding-end" *ngIf="!bonusval">
+            <h3>У вас пока нет бонусов, сделайте заказ и используйте их</h3>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="authorized" class="ion-padding">
+    <div class="order__box">
+      <div class="order__box-title">Детали заказа</div>
+      <div class="block-wrapper">
+        <form *ngIf="dopinfo" [formGroup]="dopinfo">
+          <ion-row>
+            <ion-col size="12" class="ion-align-items-center ion-justify-content-between" style="display: flex;min-height: 50px">
+                <ion-label style="margin: 0;">Приборы</ion-label>
+              <div [ngClass]="{'hideclass': priborshow}">
+                <ion-input formControlName="pribor" type="number" min="0" style="max-width: 90px;height: 40px;"></ion-input>
+              </div>
+                <ion-toggle (ionChange)="triggerChange($event)"></ion-toggle>
+            </ion-col>
+            <ion-col size="12" [ngClass]="{'hideclass': !priborshow}">
+              <div class="info">Спасибо, что без лишнего пластика!<br>Одноразовые приборы берите, только если под рукой нет своих</div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-textarea formControlName="comment" rows="3" cols="20" maxlength="200" placeholder="Комментарий к заказу"></ion-textarea>
+              <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.comment">
+                <div class="error-message"
+                     *ngIf="dopinfo.get('comment').hasError(validation.type) && (dopinfo.get('comment').dirty || dopinfo.get('comment').touched)">
+                  <ion-text color="primary">{{ validation.message }}</ion-text>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+    <!--<ion-button (click)="makeOrder()" expand="block">Оформить заказ</ion-button>-->
+      </div>
+    </div>
+  </div>
+  <!--<div *ngIf="authorized" class="ion-padding">-->
+    <!--<div class="order__box">-->
+      <!--<div class="text-content">-->
+        <!--<h2>Акции на доставку в Набережных Челнах!</h2>-->
+        <!--<p>Заказывать больше всегда выгоднее!</p>-->
+        <!--<ul>-->
+          <!--<li>При заказе на сумму от 1000 — <strong>Доставка бесплатно по Новому Городу!</strong></li>-->
+          <!--<li>При заказе на сумму от 1500 — <strong>Бесплатная доставка по Зяб,Гэс,Змелекесье!</strong></li>-->
+        <!--</ul>-->
+        <!--<p><strong>Зоны Доставок&nbsp; ПО Набережным Челнам</strong></p>-->
+        <!--<h2>Акции на доставку в Нижнекамске!</h2>-->
+        <!--<p>Заказывать больше всегда выгоднее!</p>-->
+        <!--<ul>-->
+          <!--<li>При заказе на сумму от 700 — <strong>Доставка бесплатно!</strong></li>-->
+        <!--</ul>-->
+        <!--<p><strong>Зоны бесплатной доставки от 700 рублей</strong></p>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</ion-content>
+<app-footer [isCheckout]="true" (btnClick)="eventCaught(true)"></app-footer>

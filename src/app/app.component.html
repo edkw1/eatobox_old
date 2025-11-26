@@ -1,0 +1,65 @@
+<ion-app>
+  <ion-menu class="main_menu" side="end" menuId="logged" contentId="logged" type="reveal" swipe-gesture="false">
+  <!--<ion-menu class="main_menu" side="end" menuId="logged" contentId="logged" type="reveal">-->
+
+    <ion-list lines="none">
+      <ion-row class="ion-justify-content-end" (click)="menu.close('logged')">
+        <!--<img *ngIf="menuLogo" class="logo" alt="Logo" src="{{menuLogo}}" height="{{logoHeight}}">-->
+        <img src="./assets/img/close1.svg" height="25" style="margin-right: 5px;">
+      </ion-row>
+      <!--<ion-item color="light" (click)="storageKeys()">STORAGE</ion-item>-->
+      <ion-item *ngIf="authorized" (click)="menu.close('logged')" button="true" routerLink="/profile" [queryParams]="{userid: userid}">
+        <ion-label>Профиль</ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="!authorized" (click)="menu.close('logged');" button="true" routerLink="/auth">
+        <ion-label>Войти</ion-label>
+      </ion-item>
+      <div *ngIf="pagesArr.length">
+        <ion-item *ngFor="let pagesingle  of pagesArr" (click)="menu.close('logged')" button="true"  [routerLink]="['/pages/', pagesingle['id']]" [queryParams]="{title: pagesingle.title}">
+          <ion-label>{{pagesingle.title}}</ion-label>
+        </ion-item>
+      </div>
+      <ion-item *ngIf="authorized" (click)="menu.close('logged'); doLogout()" button="true">
+        <ion-label>Выйти</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list lines="none">
+      <a *ngIf="menuPhone" href="tel:{{menuPhone}}">
+        <ion-item button="true">
+          <ion-icon name="call-outline" slot="start" color="secondary"></ion-icon>
+          <ion-label>{{menuPhone}}</ion-label>
+        </ion-item>
+      </a>
+      <a *ngIf="social_vk" href="{{social_vk}}">
+        <ion-item button="true">
+          <ion-icon name="logo-vk" slot="start" color="secondary"></ion-icon>
+          <ion-label>ВКонтакте</ion-label>
+        </ion-item>
+      </a>
+      <a *ngIf="social_inst" href="{{social_inst}}">
+        <ion-item button="true">
+          <ion-icon name="logo-instagram" slot="start" color="secondary"></ion-icon>
+          <ion-label>Instagram</ion-label>
+        </ion-item>
+      </a>
+      <!--<a *ngIf="menuAcffb" href="{{menuAcffb}}">-->
+        <!--<ion-item button="true">-->
+          <!--<ion-icon name="logo-facebook" slot="start" color="secondary"></ion-icon>-->
+          <!--<ion-label>Facebook</ion-label>-->
+        <!--</ion-item>-->
+      <!--</a>-->
+      <!--<a *ngIf="menuAcfyb" href="{{menuAcfyb}}">-->
+        <!--<ion-item button="true">-->
+          <!--<ion-icon name="logo-youtube" slot="start" color="secondary"></ion-icon>-->
+          <!--<ion-label>You Tube</ion-label>-->
+        <!--</ion-item>-->
+      <!--</a>-->
+      <!--<ion-item (click)="showDeveloperInfo()" color="light" button="true">-->
+      <!--<ion-icon name="information-circle" slot="start"></ion-icon>-->
+      <!--<ion-label>О приложении</ion-label>-->
+      <!--</ion-item>-->
+    </ion-list>
+  </ion-menu>
+  <ion-router-outlet id="logged"></ion-router-outlet>
+</ion-app>

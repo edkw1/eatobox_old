@@ -1,0 +1,88 @@
+.counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //background-color: #dee0ee;
+  border-radius: 3px;
+}
+.counter-quantity {
+  width: 30px;
+  height: 30px;
+  //background-color: #ffffff;
+  color: var(--quantity-control-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  font-size: 16px;
+}
+.remove_btn{
+  padding: 0;
+}
+.add_btn{
+  padding: 0;
+}
+button{
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+}
+button ion-icon{
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: var(--quantity-control-bg);
+}
+ion-icon svg{
+  width: 14px;
+}
+.priceprod{
+  padding: 10px;
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  color: var(--category-text);
+  background-color: var(--category-bg);
+  margin: 0;
+}
+.loadspin{
+  display: flex;
+  justify-content: center;
+}
+.loadelem {
+  display: none;
+  text-align: center;
+  height: 21px;
+}
+.p-preloader__icon {
+  width: 21px;
+  height: 21px;
+  border-top: 2px solid transparent;
+  border-right: 2px solid var(--main-color);
+  border-bottom: 2px solid var(--main-color);
+  border-left: 2px solid var(--main-color);
+  border-radius: 25px;
+  -webkit-animation-name: rotatePreloader;
+  animation-name: rotatePreloader;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+@-webkit-keyframes rotatePreloader {
+  0% {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0); }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg); } }
+
+@keyframes rotatePreloader {
+  0% {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0); }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg); } }

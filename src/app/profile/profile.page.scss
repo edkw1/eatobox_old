@@ -1,0 +1,20 @@
+.block-wrapper {
+  background-color: var(--block-wrapper-bg);
+  border-radius: 10px;
+  padding-bottom: 40px;
+}
+ion-item::part(native) {
+  background: var(--block-wrapper-bg);
+  color: var(--tab-deault);
+}
+ion-label p{
+  color: var(--tab-active);
+}
+.add-more-address {
+  color: var(--main-color);
+  margin-top: 20px;
+  font-weight: 600;
+}
+.person_info ion-label{
+  margin-top: 0;
+}

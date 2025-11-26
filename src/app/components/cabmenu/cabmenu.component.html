@@ -1,0 +1,12 @@
+
+<div class="personal-area__head">
+  <ul class="tabs">
+    <!--<li [ngClass]="{'tab-link current' : title == 'Мои данные'}" routerLink="/profile">Мои данные</li>-->
+    <!--<li [ngClass]="{'tab-link current' : title == 'Мои адреса'}" routerLink="/myadres">Мои адреса</li>-->
+    <!--<li [ngClass]="{'tab-link current' : title == 'Мои заказы'}" routerLink="/myorders">Мои заказы</li>-->
+    <li [ngClass]="{'tab-link current' : name == 'Данные'}" (click)="changeTab(title1);">{{title1}}</li>
+    <li [ngClass]="{'tab-link current' : name == 'Заказы'}" (click)="changeTab(title2)">{{title2}}</li>
+    <li *ngIf="title3" [ngClass]="{'tab-link current' : name == 'Бонусы'}" (click)="changeTab(title3)">{{title3}}</li>
+  </ul>
+  <a (click)="doLogout();" class="logout">Выйти</a>
+</div>

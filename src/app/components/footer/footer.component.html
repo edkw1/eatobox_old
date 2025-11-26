@@ -1,0 +1,56 @@
+<ion-footer collapse="fade" class="ion-no-border transparent">
+  <section *ngIf="!isCart" class="footer_btn">
+    <div *ngIf="!isCheckout">
+      <ion-button expand="block" routerLink="/cart">
+        <div class="cart_btn">
+          <ion-text style="text-transform: none;font-size: 16px">Корзина</ion-text>
+          <ion-text *ngIf="cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum+cart.giftsArrDish.length}}  <sup>Р</sup></ion-text>
+          <ion-text *ngIf="!cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum}}  <sup>Р</sup></ion-text>
+        </div>
+      </ion-button>
+    </div>
+    <div *ngIf="isCheckout">
+      <ion-grid style="padding: 0;">
+        <ion-row style="padding: 0;">
+          <ion-col size="6">
+            <ion-button expand="block" routerLink="/cart">
+              <div class="cart_btn">
+                <ion-text style="text-transform: none;font-size: 14px">Корзина</ion-text>
+                <ion-text *ngIf="cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: auto;text-align: end;">{{cart.sum+cart.giftsArrDish.length}}  <sup>Р</sup></ion-text>
+                <ion-text *ngIf="!cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: auto;text-align: end;">{{cart.sum}}  <sup>Р</sup></ion-text>
+              </div>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" (click)="$event.stopPropagation(); $event.preventDefault(); addOrder()">
+              <div class="cart_btn" style="justify-content: center">
+                <ion-text style="text-transform: none;font-size: 14px">Оформить заказ</ion-text>
+              </div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </section>
+  <section *ngIf="isCart" class="footer_btn">
+
+    <ion-button *ngIf="isLogin" expand="block" routerLink="/checkout">
+      <div class="cart_btn">
+        <ion-text style="text-transform: none;font-size: 16px">Оформить заказ</ion-text>
+        <ion-text *ngIf="cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum + cart.giftsArrDish.length}}  <sup>Р</sup></ion-text>
+        <ion-text *ngIf="!cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum}}  <sup>Р</sup></ion-text>
+      </div>
+    </ion-button>
+    <ion-button *ngIf="!isLogin" expand="block" routerLink="/auth" [queryParams]="{frompage: 'cart'}">
+      <div class="cart_btn">
+        <ion-text style="text-transform: none;font-size: 16px">Оформить заказ</ion-text>
+        <ion-text *ngIf="cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum + cart.giftsArrDish.length}}  <sup>Р</sup></ion-text>
+        <ion-text *ngIf="!cart.giftsArrDish.length" class="priceprod" style="font-size: 16px;min-width: 100px;text-align: end;">{{cart.sum}}  <sup>Р</sup></ion-text>
+      </div>
+    </ion-button>
+  </section>
+  <section *ngIf="isCart&&isClearCart" (click)="clearCartPage()" class="clear-basket">
+      Очистить корзину
+  </section>
+</ion-footer>

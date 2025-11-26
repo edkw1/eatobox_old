@@ -1,0 +1,29 @@
+<app-header title="{{params['title'] || ''}}" [isMain]="false" [isMenu]="true"></app-header>
+<ion-content>
+  <div *ngIf="!itemPage">
+    <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+    <br>
+  </div>
+
+  <div class="news ion-padding">
+    <div class="block-wrapper">
+      <ion-slides pager="false" *ngIf="slides.length" [options]="slideOptions">
+        <ion-slide tappable *ngFor="let slide of slides">
+          <div *ngIf="slide['image']">
+            <a class="slider_img">
+              <img src="{{slide['image']}}" />
+            </a>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      <div class="block-inner">
+        <div class="text-content">
+          <div class="wp_content" *ngIf="itemPage.body" [innerHTML]="itemPage.body"></div>
+          <div class="wp_content" *ngIf="!itemPage.body"><h2>Информация будет скоро предоставлена</h2></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+<app-footer></app-footer>

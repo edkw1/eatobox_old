@@ -1,0 +1,9 @@
+<div class="counter ion-align-items-center">
+  <button class="qtu_btn remove_btn" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, false); modifAction(quantity)">
+    <ion-icon color="quantity" slot="icon-only" name="remove"></ion-icon>
+  </button>
+  <div class="counter-quantity"><ion-text>{{quantity}}</ion-text></div>
+  <button class="qtu_btn add_btn" (click)="$event.stopPropagation(); $event.preventDefault(); setQuantity($event, true);modifAction(quantity)">
+    <ion-icon color="quantity" slot="icon-only" name="add"></ion-icon>
+  </button>
+</div>

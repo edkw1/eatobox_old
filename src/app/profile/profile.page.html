@@ -1,0 +1,172 @@
+<app-header title="Профиль" [isMain]="false" [isCart]="true"></app-header>
+
+<ion-content>
+  <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">-->
+  <!--<ion-refresher-content></ion-refresher-content>-->
+  <!--</ion-refresher>-->
+  <div class="ion-padding">
+    <h1 class="title">Личный кабинет</h1>
+    <div class="block-wrapper">
+      <app-cabmenu title1="Данные" title2="Заказы" title3="{{title3}}" (click)="clickMe()"></app-cabmenu>
+
+      <div *ngIf="nameTabPerson == 'Данные'" class="padding15">
+        <div *ngIf="!personPhone">
+          <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+          <br>
+        </div>
+        <div *ngIf="personPhone" class="person_info">
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>Телефон</h3>
+              </ion-text>
+              <p>{{personPhoneShow}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>Имя</h3>
+              </ion-text>
+              <p *ngIf="first_name">{{first_name}}</p>
+              <p *ngIf="!first_name">Не заполнено</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>Фамилия</h3>
+              </ion-text>
+              <p *ngIf="last_name">{{last_name}}</p>
+              <p *ngIf="!last_name">Не заполнено</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>E-mail</h3>
+              </ion-text>
+              <p *ngIf="personEmail">{{personEmail}}</p>
+              <p *ngIf="!personEmail">Не внесен</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>Пол</h3>
+              </ion-text>
+              <p *ngIf="personGender">{{personGender}}</p>
+              <p *ngIf="!personGender">Не указан</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h3>Дата рождения</h3>
+              </ion-text>
+              <p *ngIf="personBirthday">{{personBirthday | date: 'dd.MM.yyyy'}}</p>
+              <p *ngIf="!personBirthday">Не указана</p>
+            </ion-label>
+          </ion-item>
+          <p class="terms">
+            Указать дату рождения и пол можно только один раз. <br>
+            Если вы ошиблись, свяжитесь с администратором.
+          </p>
+          <!--<ion-item>-->
+          <!--<ion-label class="ion-text-wrap">-->
+          <!--<ion-text>-->
+          <!--<h3>Бонусы </h3>-->
+          <!--</ion-text>-->
+          <!--<p *ngIf="bonusval">Доступно <b>{{bonusval}} </b> бонусов</p>-->
+          <!--<p *ngIf="!bonusval">Информация обновляется</p>-->
+          <!--</ion-label>-->
+          <!--</ion-item>-->
+          <div class="personal-area__bottom">
+            <ion-button expand="block" (click)="goToChangProfile()">Внести изменения</ion-button>
+          </div>
+          <div class="personal-area__bottom">
+            <ion-button expand="block" (click)="goToDelProfile()">Удалить аккаунт</ion-button>
+          </div>
+        </div>
+        <div *ngIf="!is_iiko">
+                <h2 style="margin-top: 25px; margin-bottom: 10px;font-size: 21px;font-weight: 600">Мои адреса</h2>
+                <div *ngIf="!showAdr">
+                  <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+                  <br>
+                </div>
+                <div *ngIf="showAdr">
+                  <div *ngIf="arrAddr.length">
+                    <h2>ADDR array is!</h2>
+                  </div>
+                  <div class="add-more-address" (click)="goToAddAdress()">+ Добавить еще один адрес</div>
+                  <!--<ion-button expand="block" >Добавить адрес</ion-button>-->
+
+
+                </div>
+                <!--<ion-item lines="none" *ngIf="adr1">-->
+                  <!--<ion-text slot="start" class="item_adr">{{adr1}}</ion-text>-->
+                  <!--&lt;!&ndash;<ion-icon name="create-outline" slot="end" (click)="goToEditAdr(userid, 'billing')" [routerLink]="['/editadres']" [queryParams]="{userid, type : 'billing'}"></ion-icon>&ndash;&gt;-->
+                  <!--<ion-icon name="create-outline" slot="end" [routerLink]="['/editadres']" [queryParams]="{userid, type : 'billing', street: adr1street, house:adr1house, flat:adr1flat}"></ion-icon>-->
+                <!--</ion-item>-->
+                <!--<ion-item lines="none" *ngIf="adr2">-->
+                  <!--<ion-text slot="start" class="item_adr">{{adr2}}</ion-text>-->
+                  <!--<ion-icon name="create-outline" slot="end" [routerLink]="['/editadres']" [queryParams]="{userid, type : 'shipping', street: adr2street, house:adr2house, flat:adr2flat}"></ion-icon>-->
+                  <!--<ion-icon name="trash-bin-outline" slot="end" (click)="goToDelAdr(userid,'shipping')"></ion-icon>-->
+                <!--</ion-item>-->
+        </div>
+
+      </div>
+      <div *ngIf="nameTabPerson == 'Заказы'" class="padding15">
+        <p style="margin-top: 10px;margin-bottom: 10px;">История заказов</p>
+        <div class="content" *ngIf="!api.spinner">
+          <div *ngIf="technologies.length">
+            <app-accordion *ngFor="let technology of technologies"
+                           datezak="{{ technology.created_at }}"
+                           name="{{ technology.id }}"
+                           total="{{ technology.cart_price }}"
+                           [prodarr]="technology.products"
+                           orderid="{{ technology.id }}"
+                           (change)="captureName($event)"
+            ></app-accordion>
+          </div>
+          <div *ngIf="!technologies.length">
+            <small>У Вас пока нет заказов в истории<br> либо информация обновляется</small>
+          </div>
+        </div>
+        <div class="content" *ngIf="api.spinner">
+          <ion-text>Перенаправление в корзину...</ion-text>
+          <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+        </div>
+      </div>
+      <div *ngIf="nameTabPerson == 'Бонусы'" class="padding15">
+        <!--<div *ngIf="authorized" class="ion-padding">-->
+        <div class="order__box">
+          <div *ngIf="!bonusval">
+            <ion-progress-bar type="indeterminate" color="mainapp"></ion-progress-bar>
+            <br>
+          </div>
+          <div class="text-content">
+
+            <h2 *ngIf="bonusval">У вас {{bonusval}} бонусов</h2>
+            <h3 *ngIf="bonusval=='0'">У вас пока нет бонусов, сделайте заказ и используйте их</h3>
+            <p>Вы можете использовать бонусы для частичной, до 20% от общей суммы заказа, оплаты вашего заказа</p>
+            <p style="color: #c9cbce; font-size: 14px;">Бонусы – расчетные бонусные единицы, зачисляемые на Бонусный
+              счет Участника в соответствии с Правилами Программы, а также при выполнении Участником иных условий,
+              определенных Организатором самостоятельно либо по согласованию с Партнерами, являющихся основанием для
+              начисления Бонусов. Бонусы не имеют наличного выражения и не предоставляют Участнику право на получение их
+              в денежном эквиваленте. Срок действия Бонусов, начисленных за покупку на Бонусный счет Участника – 1 год с
+              даты их начисления. Срок действия акционных Бонусов устанавливается Организатором дополнительно по каждой
+              акции в отдельности.</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!--<ion-button (click)="getAllOrders('129')">Получить заказы</ion-button>-->
+    <!--<ion-button (click)="getCustomerInfo('129')">Данные клиента</ion-button>-->
+    <!--<ion-button (click)="getCustomerId('79393010443')">Получить id 79393010443</ion-button>-->
+    <!--<ion-button (click)="setOrder()">Создать заказ</ion-button>-->
+  </div>
+</ion-content>

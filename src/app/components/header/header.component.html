@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar class="header-bg">
+
+    <ion-buttons slot="start" *ngIf="!isMain">
+      <!--<ion-back-button *ngIf="!isCabinet" [text]="text" [defaultHref]="[backPath ? backPath : '/']"></ion-back-button>-->
+      <!--<ion-back-button *ngIf="isCabinet" [text]="text" routerLink="/" [defaultHref]="[backPath ? '/' : '/']"></ion-back-button>-->
+      <ion-icon *ngIf="backBtn" color="secondary" name="arrow-back-outline" (click)="goToUrl(backBtn)" style="font-size: 26px;
+    margin-left: 10px;"></ion-icon>
+      <!--<ion-button *ngIf="backBtn"  color="secondary" (click)="goToUrl(backBtn)"></ion-button>-->
+      <ion-back-button *ngIf="!backBtn" color="secondary" [text]="text" [defaultHref]="[backPath ? backPath : '/']"></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="isMain" slot="start" style="display: flex;justify-content: center;align-content: center;padding: 0 0 0 15px">
+      <img class="logo" alt="Logo" src="./assets/img/logo.svg" height="40" style="height: 40px">
+    </div>
+    <ion-title color="secondary" *ngIf="!isMain" >
+      {{title}}
+      <div class="subtitle" *ngIf="additionalData">{{additionalData}}</div>
+    </ion-title>
+    <div class="block_btns" slot="end" *ngIf="!isCart">
+      <div *ngIf="phonesite">
+        <ion-button slot="end" fill="clear" href="tel:{{phonesite}}">
+          <ion-icon class="header_svg" src="./assets/img/telicon.svg"></ion-icon>
+        </ion-button>
+      </div>
+      <div *ngIf="authorized" style="margin-left: 4px;">
+        <ion-button fill="clear" *ngIf="!isCabinet" routerLink="/profile" [queryParams]="{userid: userid}">
+          <ion-icon *ngIf="!username" class="header_svg" src="./assets/img/profile.svg"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div *ngIf="!authorized" style="margin-left: 4px;">
+
+        <ion-button fill="clear" *ngIf="!isCabinet" routerLink="/auth">
+          <ion-icon class="header_svg" src="./assets/img/profile.svg"></ion-icon>
+        </ion-button>
+      </div>
+      <div *ngIf="!isMenu" style="width: 5px">
+      </div>
+      <!--<ion-buttons >-->
+        <ion-menu-button [autoHide]="false" fill="clear" *ngIf="isMenu"><ion-icon class="header_menu" src="./assets/img/burger.svg"></ion-icon></ion-menu-button>
+      <!--</ion-buttons>-->
+    </div>
+  </ion-toolbar>
+</ion-header>

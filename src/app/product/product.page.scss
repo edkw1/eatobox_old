@@ -1,0 +1,206 @@
+ion-item-group{
+  padding-top: 20px;
+}
+.item_prod_img img{
+  border-radius: 10px;
+}
+.item-fullw{
+  width: 100%;
+}
+ion-item-group ion-item::part(native) {
+  background: var(--body-bg);
+  color: var(--body-text);
+  font-size: 18px;
+}
+.item-title{
+  margin-bottom: 15px;
+}
+.item-title b{
+  color: var(--product-name-price);
+  font-weight: 600;
+}
+.item-title span{
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--body-text);
+  margin-left: 5px;
+}
+.modal-product__descr {
+  font-size: 14px;
+  margin-bottom: 30px;
+  line-height: 1.352;
+  color: var(--body-text);
+}
+.product-bju {
+  margin-bottom: 40px;
+  list-style: none;
+  padding: 15px 0;
+  border: 2px solid var(--header-address-border);
+  border-radius: 7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.product-bju li {
+  width: 25%;
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+}
+.product-bju li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 33px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 0;
+  background-color: var(--header-address-border);
+}
+.product-bju li span {
+  color: var(--product-name-price);
+  font-size: 18px;
+  display: block;
+}
+.priceprod {
+  background-color: var(--basket-bottom-price-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 37px;
+  min-width: 75px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 15px;
+  color: var(--basket-bottom-price-text);
+  border-radius: 7px;
+}
+.footer_btn ion-button{
+  height: 50px;
+}
+.cart_btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product__composition-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding-left: 0;
+}
+.checkbox-container {
+  width: 100%;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 17px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: var(--product-name-price);
+  line-height: 1.538;
+  font-size: 14px;
+}
+.checkbox-container input {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+.checkbox-container input ~ p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border-checkbox);
+  background-color: var(--bg-checkbox);
+  border-radius: 3px;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkbox-container .checkmark:after {
+  width: 22px;
+  height: 22px;
+  background-size: 35% 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../../assets/img/icon-checkbox.svg);
+}
+.checkbox-container input:checked ~ p .checkmark:after{
+  display: block;
+}
+.checkbox-container input:checked ~ p .checkmark{
+  background-color: var(--bg-checked-checkbox);
+  border-color: var(--bg-checked-checkbox);
+}
+.loadspin{
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+.loadelem {
+  display: none;
+}
+.p-preloader__icon {
+  width: 30px;
+  height: 30px;
+  border-top: 3px solid transparent;
+  border-right: 3px solid var(--products-bg);
+  border-bottom: 3px solid var(--products-bg);
+  border-left: 3px solid var(--products-bg);
+  border-radius: 25px;
+  -webkit-animation-name: rotatePreloader;
+  animation-name: rotatePreloader;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  margin-left: auto;
+  margin-right: auto;
+}
+@-webkit-keyframes rotatePreloader {
+  0% {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0); }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg); } }
+
+@keyframes rotatePreloader {
+  0% {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0); }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg); } }

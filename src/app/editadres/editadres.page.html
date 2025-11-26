@@ -1,0 +1,70 @@
+<app-header title="{{tit}} адрес" [isMain]="false" [isCart]="true" [backBtn]="'/profile?userid='+userid"></app-header>
+
+<ion-content>
+  <form *ngIf="changeadr" [formGroup]="changeadr">
+    <ion-item lines="inset">
+      <ion-label position="stacked">Город*</ion-label>
+      <ion-input formControlName="deliveryadr" inputmode="text" minlength="4" maxlength="20" [required]="true" type="text" readonly></ion-input>
+    </ion-item>
+    <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.deliveryadr">
+      <div class="error-message"
+           *ngIf="changeadr.get('deliveryadr').hasError(validation.type) && (changeadr.get('deliveryadr').dirty || changeadr.get('deliveryadr').touched)">
+        <ion-text color="primary">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+    <ion-item lines="inset">
+      <ion-label position="stacked">Улица*</ion-label>
+      <ion-input formControlName="delstreet" inputmode="text" minlength="4" maxlength="15" [required]="true" type="text"></ion-input>
+    </ion-item>
+    <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.delstreet">
+      <div class="error-message"
+           *ngIf="changeadr.get('delstreet').hasError(validation.type) && (changeadr.get('delstreet').dirty || changeadr.get('delstreet').touched)">
+        <ion-text color="primary">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+
+    <ion-item lines="inset">
+      <ion-label position="stacked">Дом*</ion-label>
+      <ion-input formControlName="delhouse" inputmode="text" maxlength="4" type="text" [required]="true"></ion-input>
+    </ion-item>
+    <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.delhouse">
+      <div class="error-message"
+           *ngIf="changeadr.get('delhouse').hasError(validation.type) && (changeadr.get('delhouse').dirty || changeadr.get('delhouse').touched)">
+        <ion-text color="primary">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+    <ion-item lines="inset">
+      <ion-label position="stacked">Квартира</ion-label>
+      <ion-input formControlName="delappart" inputmode="text" maxlength="4" type="text"></ion-input>
+    </ion-item>
+    <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.delappart">
+      <div class="error-message"
+           *ngIf="changeadr.get('delappart').hasError(validation.type) && (changeadr.get('delappart').dirty || changeadr.get('delappart').touched)">
+        <ion-text color="primary">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+    <ion-item lines="inset">
+      <ion-label position="stacked">Комментарий для адреса (необязательно)</ion-label>
+      <ion-textarea formControlName="additionalInfo" rows="3" cols="20"></ion-textarea>
+      <!--<ion-input formControlName="additionalInfo" inputmode="text" maxlength="160" [required]="false" type="text"></ion-input>-->
+    </ion-item>
+    <ion-item lines="none">
+      <ion-text><small style="color:#737373">Для сохранения параметров, пожалуйста заполните все поля отмеченные звёздочкой</small></ion-text>
+    </ion-item>
+    <div class="ion-padding-horizontal" *ngFor="let validation of validationMessages.additionalInfo">
+      <div class="error-message"
+           *ngIf="changeadr.get('additionalInfo').hasError(validation.type) && (changeadr.get('additionalInfo').dirty || changeadr.get('additionalInfo').touched)">
+        <ion-text color="primary">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+  </form>
+  <br>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">  <ion-button (click)="changeAdr()" color="primary" expand="block"><ion-text color="secondary" class="text_upper"><b>Сохранить изменения</b></ion-text></ion-button>
+      </ion-col>
+      <!--<ion-col size="12">  <ion-button (click)="goBack()" size="medium" color="secondary" expand="block"><ion-text color="dark" class="text_upper"><b>Отмена</b></ion-text></ion-button>-->
+      <!--</ion-col>-->
+    </ion-row>
+  </ion-grid>
+</ion-content>
