@@ -10,7 +10,7 @@ export class ApiService {
   private apiuser: string = 'ck_d6513f01a79bdc7208fbfe5842a38cfc91225ad1';
   private apisecret: string = 'cs_3652f29603f0c6dc2677dc1f8114a3f4c0476f74';
   // public urlApi = 'https://demo.eatobox-api.ru';
-  public urlApi = 'https://sushihouse.eatobox-api.ru';
+  public urlApi = 'https://norimi.eatobox-api.ru';
   public urlSmsru = 'https://sms.ru/sms/send?api_id=';
   public spinner = false;
   constructor(
