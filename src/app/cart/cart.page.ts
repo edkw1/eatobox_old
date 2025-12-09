@@ -13,10 +13,10 @@ import {ConfigService} from "../services/config.service";
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  private isLoading = false;
-  private authorized = false;
+  public isLoading = false;
+  public authorized = false;
   private sid;
-  private noimgProd: string;
+  public noimgProd: string;
   dishes: Array<object> = [];
   // public giftsCart: Array<object> = [];
   public giftsArr: Array<object> = [];
@@ -34,7 +34,7 @@ export class CartPage implements OnInit {
   public deliveryCount:number = 0;
   constructor(
     private api: ApiService,
-    private cart: CartService,
+    public cart: CartService,
     private config: ConfigService,
     // private order: OrdersService,
     public alertController: AlertController,

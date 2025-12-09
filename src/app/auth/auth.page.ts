@@ -17,15 +17,15 @@ export class AuthPage implements OnInit {
   counter = 45;
   tick = 1000;
   private params;
-  private authorized = false;
+  authorized = false;
   private isLoading = false;
-  private isTimer = false;
-  private isSmsBtn = false;
+  isTimer = false;
+  isSmsBtn = false;
   private isSms2 = false;
-  private smsru: FormGroup;
-  private kodsms: FormGroup;
+  smsru: FormGroup;
+  public kodsms: FormGroup;
   private phone: string = '';
-  private adminUser = false;
+  adminUser = false;
   private smsnumber: string = '';
   public btnSmsShow = false;
   public btnKodSend = true;
@@ -44,7 +44,7 @@ export class AuthPage implements OnInit {
     private storage: Storage,
     private config: ConfigService,
   ) { }
-  private validationMessages = {
+  validationMessages: any = {
     phone: [
       {type: 'required', message: 'Телефон обязателен'},
       {type: 'minlength', message: 'Недостаточно цифр'},

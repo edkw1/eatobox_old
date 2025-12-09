@@ -11,7 +11,7 @@ import {Storage} from '@ionic/storage-angular';
 })
 export class EditprofilePage implements OnInit {
   private params;
-  private loadData = false;
+  public loadData = false;
   public gendershow = false;
   public birthdayshow = false;
   public username = '';
@@ -21,8 +21,8 @@ export class EditprofilePage implements OnInit {
   public userid = '';
   public usergendervalue = '0';
   public personEmail = '';
-  private changeuser: FormGroup;
-  private validationMessages = {
+  public changeuser: FormGroup;
+  public validationMessages = {
     name: [
       {type: 'required', message: 'Имя обязательно'},
       {type: 'maxlength', message: 'Слишком длинное'}

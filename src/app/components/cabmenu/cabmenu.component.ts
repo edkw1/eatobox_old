@@ -18,7 +18,7 @@ export class CabmenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {}
-  private doLogout() {
+  public doLogout() {
     this.cart.doLogout();
   }
   public changeTab(name){

@@ -16,23 +16,23 @@ import {Subscription} from "rxjs";
 export class CheckoutPage implements OnInit {
   @ViewChild('paymentType', {static: false}) paymentType: IonSelect;
   @ViewChild('deliveryType', {static: false}) deliveryType: IonSelect;
-  private authorized = false;
+  public authorized = false;
   private isLoading = false;
-  private isLoadingPromo = false;
-  private isCancelPromo = false;
-  private priborshow = true;
+  public isLoadingPromo = false;
+  public isCancelPromo = false;
+  public priborshow = true;
   public oplatashow:boolean = false;
   portsSubscription: Subscription;
   cartSum = 0;
-  private deliv: FormGroup;
-  private sklad: FormGroup;
-  private oplata: FormGroup;
-  private money: FormGroup;
-  private bonus: FormGroup;
-  private promo: FormGroup;
-  private dopinfo: FormGroup;
+  public deliv: FormGroup;
+  public sklad: FormGroup;
+  public oplata: FormGroup;
+  public money: FormGroup;
+  public bonus: FormGroup;
+  public promo: FormGroup;
+  public dopinfo: FormGroup;
   public sposobi:Array<any> = [];
-  public cashPay:Array<any> = [];
+  public cashPay: any;
   public cardPay:Array<any> = [];
   public cities:Array<any> = [];
   public points:Array<any> = [];
@@ -40,11 +40,11 @@ export class CheckoutPage implements OnInit {
   public addedDishes :Array<any> = [];
   private userphone: string = '';
   private userid: string = '';
-  private sposoboplat: string = '';
+  public sposoboplat: string = '';
   private promouse: string = '';
   // private sumCart: number = 0;
   private adminUser = false;
-  private is_iiko = false;
+  public is_iiko = false;
   private is_bonus = false;
   private smsnumber: string = '';
   public btnSmsShow = false;
@@ -52,7 +52,7 @@ export class CheckoutPage implements OnInit {
   public smsSend = false;
   public btnSend = true;
   public btnSendPreload = false;
-  private userdelivery = '2';
+  public userdelivery = '2';
   public bonusval:number;
   public max_bonuses = '';
   public max_bonusesval:number;
@@ -98,7 +98,7 @@ export class CheckoutPage implements OnInit {
       return port.title.toLowerCase().indexOf(text) !== -1;
     });
   }
-  private validationMessages = {
+  public validationMessages: any = {
     phone: [
       {type: 'required', message: 'Телефон обязателен'},
       {type: 'minlength', message: 'Недостаточно цифр'},

@@ -11,9 +11,9 @@ import {CartService} from "../services/cart.service";
 export class PagesPage implements OnInit {
   public id: string;
   public params;
-  public itemPage: Array<object> = [];
+  public itemPage: any;
   slides: any = [];
-  private slideOptions: object = {
+  public slideOptions: object = {
     slidesPerView: 1.2,
     spaceBetween: 10,
     autoHeight: true,

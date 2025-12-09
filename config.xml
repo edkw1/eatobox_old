@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="eato.oxbox.sushihaus" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="eato.oxbox.norimi" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Norimi</name>
     <description>Доставка роллов, пиццы и горячих блюд</description>
     <author email="oxbox@oxbox.ru" href="https://oxbox.ru/">Oxbox</author>

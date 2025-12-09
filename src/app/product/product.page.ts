@@ -19,12 +19,12 @@ export class ProductPage implements OnInit {
   public title: string;
   public image: string;
   public noimgProd: string;
-  public countcur:number = 0;
+  public countcur = 0;
   public modifierform = [];
   public productsitem = {};
-  private params;
-  private itemProd;
-  private modific: FormGroup;
+  public itemProd;
+  public modific: FormGroup;
+  public params;
 
   numChecked: number = 0;
 
@@ -76,7 +76,7 @@ export class ProductPage implements OnInit {
           // this.setSettings(this.itemProd['modifierCategories']);
           let formselem = this.itemProd['modifierCategories'];
           formselem.forEach(item=>{
-            
+
           });
           let form={};
           for (let i=0; i<formselem.length; i++){

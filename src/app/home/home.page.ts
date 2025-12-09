@@ -27,11 +27,11 @@ export class HomePage {
   public inputValue = '';
   public searchArr = [];
   public searchText: string;
-  public categories: Array<object> = [];
-  public catListParent: Array<object> = [];
-  public catListParentTemp: Array<object> = [];
-  private skeletonArr = Array(4).fill(1);
-  private slideOptions: object = {
+  public categories: Array<any> = [];
+  public catListParent: Array<any> = [];
+  public catListParentTemp: Array<any> = [];
+  public skeletonArr = Array(4).fill(1);
+  public slideOptions: object = {
     slidesPerView: 1.2,
     spaceBetween: 10,
     autoHeight: true,

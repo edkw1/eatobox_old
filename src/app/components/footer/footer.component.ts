@@ -12,9 +12,9 @@ export class FooterComponent implements OnInit {
   @Input() isLogin: boolean = false;
   @Input() isCheckout: boolean = false;
   @Output() btnClick = new EventEmitter();
-  private isClearCart:boolean = false;
+  public isClearCart = false;
   constructor(
-    private cart: CartService,
+    public cart: CartService,
     private navCtrl: NavController,
   ) { }
 
