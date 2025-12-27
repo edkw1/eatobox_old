@@ -8,6 +8,8 @@ import {Storage} from '@ionic/storage-angular';
 import {ConfigService} from "../services/config.service";
 import {IonicSelectableComponent} from "ionic-selectable";
 import {Subscription} from "rxjs";
+import {PaymentType} from './payment-type.model';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
@@ -16,6 +18,8 @@ import {Subscription} from "rxjs";
 export class CheckoutPage implements OnInit {
   @ViewChild('paymentType', {static: false}) paymentType: IonSelect;
   @ViewChild('deliveryType', {static: false}) deliveryType: IonSelect;
+
+  paymentTypes: PaymentType[] = [];
   private authorized = false;
   private isLoading = false;
   private isLoadingPromo = false;
@@ -98,7 +102,7 @@ export class CheckoutPage implements OnInit {
       return port.title.toLowerCase().indexOf(text) !== -1;
     });
   }
-  private validationMessages = {
+  private validationMessages: any = {
     phone: [
       {type: 'required', message: 'Телефон обязателен'},
       {type: 'minlength', message: 'Недостаточно цифр'},
@@ -173,7 +177,23 @@ export class CheckoutPage implements OnInit {
     if(this.config.defaultSettings.hasOwnProperty('max_bonuses')){
       this.max_bonuses = this.config.defaultSettings['max_bonuses'];
     }
-console.log('this.max_bonuses',this.max_bonuses);
+    this.paymentTypes = [];
+    if (this.config.defaultSettings.source.payment_card) {
+      this.paymentTypes.push({id: 'card', name: 'Картой курьеру'});
+    }
+    if (this.config.defaultSettings.source.payment_cash) {
+      this.paymentTypes.push({id: 'cash', name: 'Наличными курьеру'});
+    }
+    if (this.config.defaultSettings.source.payment_transfer) {
+      this.paymentTypes.push({id: 'transfer', name: 'Онлайн-оплата переводом'});
+    }
+    // if (this.config.defaultSettings.source.payment_robokassa) {
+    //   this.paymentTypes.push({id: 'robokassa', name: 'Онлайн-оплата'});
+    // }
+    // if (this.config.defaultSettings.source.payment_alfa) {
+    //   this.paymentTypes.push({id: 'alfa', name: 'Онлайн оплата'});
+    // }
+    console.log('this.max_bonuses',this.max_bonuses);
     this.addedDishes = this.cart.getAddedDishes();
     this.cartSum = this.cart.getDishesSum();
 
@@ -436,12 +456,10 @@ getBonuses(){
     if (event != undefined) {
       this.sposoboplat = event.detail.value;
       console.log('this.money',this.money);
-      if (this.cashPay && this.sposoboplat == this.cashPay['id']) {
+      if (this.sposoboplat == 'cash') {
         this.money.setControl('moneyval', new FormControl('', Validators.compose([])));
-      }
-      if (this.cardPay && this.sposoboplat == this.cardPay['id']) {
+      } else {
         this.money.removeControl('moneyval');
-
       }
     }
   }
@@ -590,9 +608,9 @@ getBonuses(){
       dataOrder['iiko_cashbox_id'] = this.sklad.value.pointname;
 
     }
-    dataOrder['iiko_payment_id'] = this.oplata.value.varpay;
+    dataOrder['payment'] = this.oplata.value.varpay;
 
-    if(this.oplata.value.varpay=='1'){
+    if(this.oplata.value.varpay=='cash'){
       dataOrder['comment'] = this.money.value.moneyval ? dataOrder['comment'] + '; Сдача с' + this.money.value.moneyval : dataOrder['comment'];
     }
     // let tmpDishes = this.cart.getAddedDishes();
@@ -718,7 +736,7 @@ getBonuses(){
       dataOrder['iiko_cashbox_id'] = this.sklad.value.pointname;
 
     }
-    dataOrder['iiko_payment_id'] = this.oplata.value.varpay;
+    dataOrder['payment'] = this.oplata.value.varpay;
 
     // if(this.oplata.value.varpay=='1'){
     //   dataOrder['comment'] = this.money.value.moneyval ? dataOrder['comment'] + '; Сдача с' + this.money.value.moneyval : dataOrder['comment'];

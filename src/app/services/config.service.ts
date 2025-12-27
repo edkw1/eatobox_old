@@ -60,7 +60,8 @@ export class ConfigService {
             'tuesday_to': result['data']['tuesday_to'].slice(0, -3),
             'wednesday_from': result['data']['wednesday_from'].slice(0, -3),
             'wednesday_to': result['data']['wednesday_to'].slice(0, -3),
-            'mincart': 0
+            'mincart': 0,
+            'source': result['data']
           };
           this.is_iiko = this.defaultSettings['is_iiko'];
           // if(!this.is_iiko){

@@ -253,25 +253,10 @@
         <form *ngIf="oplata" [formGroup]="oplata">
           <div class="ion-padding-end" *ngIf="oplatashow">
             <ion-radio-group (ionChange)="onMoneyRadio($event)" formControlName="varpay" [required]="true">
-              <ion-item lines="none">
-                <ion-label>Наличные</ion-label>
-                <ion-radio slot="start" value="1"></ion-radio>
+              <ion-item lines="none" *ngFor="let paymentType of paymentTypes">
+                <ion-label>{{paymentType.name}}</ion-label>
+                <ion-radio slot="start" [value]="paymentType.id"></ion-radio>
               </ion-item>
-
-              <ion-item lines="none">
-                <ion-label>Банковская карта</ion-label>
-                <ion-radio slot="start" value="2"></ion-radio>
-              </ion-item>
-              <!--<ion-item *ngIf="cashPay" lines="none">-->
-                <!--<ion-label>{{cashPay.title}}</ion-label>-->
-                <!--<ion-radio slot="start" value="{{cashPay.id}}"></ion-radio>-->
-              <!--</ion-item>-->
-
-              <!--<ion-item *ngIf="cardPay" lines="none">-->
-                <!--<ion-label>{{cardPay.title}}</ion-label>-->
-                <!--<ion-radio slot="start" value="{{cardPay.id}}"></ion-radio>-->
-              <!--</ion-item>-->
-
             </ion-radio-group>
             <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.varpay">
               <div class="error-message"
@@ -283,7 +268,7 @@
         </form>
 
         <form *ngIf="money" [formGroup]="money">
-          <ion-col size="12" *ngIf="cashPay && sposoboplat==cashPay.id">
+          <ion-col size="12" *ngIf="sposoboplat==='cash'">
             <ion-input placeholder="Требуется сдача с" formControlName="moneyval" inputmode="text"
                        maxlength="20" type="text"></ion-input>
             <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.moneyval">
