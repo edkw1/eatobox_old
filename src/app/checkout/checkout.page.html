@@ -305,26 +305,12 @@
                 <ion-button (click)="getPromo()" *ngIf="isLoadingPromo" expand="block" style="width: 100%">Отправка данных...</ion-button>
                 <ion-button (click)="clearPromo()" *ngIf="!isLoadingPromo && isCancelPromo" expand="block" style="width: 100%">Отменить промокод</ion-button>
               </ion-row>
-              <!--</div>-->
-              <!--<ion-row *ngIf="!bonusval">-->
-              <!--<ion-col size="12">-->
-              <!--<small>Информация о бонусах обновляется</small>-->
-              <!--</ion-col>-->
-              <!--</ion-row>-->
             </ion-grid>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <!--<div class="ion-padding">-->
-    <!--<div class="order__box">-->
-      <!--<div class="order__box-title">ТЕСТ</div>-->
-      <!--<div class="block-wrapper">-->
-        <!--<ion-button expand="block" (click)="checkOrder()">CALCULATE</ion-button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
   <div *ngIf="bonus" class="ion-padding">
     <div class="order__box">
       <div class="order__box-title">Бонусы</div>
@@ -392,24 +378,5 @@
       </div>
     </div>
   </div>
-  <!--<div *ngIf="authorized" class="ion-padding">-->
-    <!--<div class="order__box">-->
-      <!--<div class="text-content">-->
-        <!--<h2>Акции на доставку в Набережных Челнах!</h2>-->
-        <!--<p>Заказывать больше всегда выгоднее!</p>-->
-        <!--<ul>-->
-          <!--<li>При заказе на сумму от 1000 — <strong>Доставка бесплатно по Новому Городу!</strong></li>-->
-          <!--<li>При заказе на сумму от 1500 — <strong>Бесплатная доставка по Зяб,Гэс,Змелекесье!</strong></li>-->
-        <!--</ul>-->
-        <!--<p><strong>Зоны Доставок&nbsp; ПО Набережным Челнам</strong></p>-->
-        <!--<h2>Акции на доставку в Нижнекамске!</h2>-->
-        <!--<p>Заказывать больше всегда выгоднее!</p>-->
-        <!--<ul>-->
-          <!--<li>При заказе на сумму от 700 — <strong>Доставка бесплатно!</strong></li>-->
-        <!--</ul>-->
-        <!--<p><strong>Зоны бесплатной доставки от 700 рублей</strong></p>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
 </ion-content>
 <app-footer [isCheckout]="true" (btnClick)="eventCaught(true)"></app-footer>

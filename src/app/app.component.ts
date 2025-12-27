@@ -14,15 +14,15 @@ import {CartService} from './services/cart.service';
 import {ConfigService} from './services/config.service';
 import { Storage } from '@ionic/storage-angular';
 import {EventsService} from "./services/events.service";
-import OneSignal from "onesignal-cordova-plugin";
+// import OneSignal from "onesignal-cordova-plugin";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  private authorized = false;
-  private pagesArr:Array<any> = [];
+  authorized = false;
+  pagesArr: Array<any> = [];
   public menuPhone ='';
   public userid ='';
   public social_vk ='';
@@ -31,7 +31,7 @@ export class AppComponent {
     private platform: Platform,
     private alertController: AlertController,
     private navCtrl: NavController,
-    private menu: MenuController,
+    public menu: MenuController,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public loadingController: LoadingController,
@@ -79,7 +79,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.splashScreen.hide();
       this.statusBar.styleLightContent();
-      this.OneSignalInit();
+      //this.OneSignalInit();
     });
   }
   getPages() {
@@ -103,28 +103,28 @@ export class AppComponent {
 
     });
   }
-  OneSignalInit(stor = this.storage, api = this.api): void {
-    // Uncomment to set OneSignal device logging to VERBOSE
-    // OneSignal.setLogLevel(6, 0);
-    // NOTE: Update the setAppId value below with your OneSignal AppId.
-    OneSignal.setAppId("7bccee8e-2fc5-4ea3-9ec5-32575f7fb300");
-    OneSignal.setNotificationOpenedHandler(function(jsonData) {
-      let msg = jsonData.notification.body ? '<p>'+jsonData.notification.body+'</p>' : '';
-      let title = jsonData.notification.title;
-      // let additionalData = jsonData.payload.additionalData;
-      console.log('title=',title);
-      console.log('msg=',msg);
-      let img = jsonData.notification.rawPayload['bicon'] ? '<div class="img_alert"><img src="'+jsonData.notification.rawPayload['bicon']+'"></div>': '';
-      api.alertMessage(title, msg+img);
-      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-    });
-    // iOS - Prompts the user for notification permissions.
-    //    * Since this shows a generic native prompt, we recommend instead using an In-App Message to prompt for notification permission (See step 6) to better communicate to your users what notifications they will get.
-    OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
-      console.log("User accepted notifications: " + accepted);
-    });
-  }
-  private doLogout() {
+  // OneSignalInit(stor = this.storage, api = this.api): void {
+  //   // Uncomment to set OneSignal device logging to VERBOSE
+  //   // OneSignal.setLogLevel(6, 0);
+  //   // NOTE: Update the setAppId value below with your OneSignal AppId.
+  //   OneSignal.setAppId("7bccee8e-2fc5-4ea3-9ec5-32575f7fb300");
+  //   OneSignal.setNotificationOpenedHandler(function(jsonData) {
+  //     let msg = jsonData.notification.body ? '<p>'+jsonData.notification.body+'</p>' : '';
+  //     let title = jsonData.notification.title;
+  //     // let additionalData = jsonData.payload.additionalData;
+  //     console.log('title=',title);
+  //     console.log('msg=',msg);
+  //     let img = jsonData.notification.rawPayload['bicon'] ? '<div class="img_alert"><img src="'+jsonData.notification.rawPayload['bicon']+'"></div>': '';
+  //     api.alertMessage(title, msg+img);
+  //     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  //   });
+  //   // iOS - Prompts the user for notification permissions.
+  //   //    * Since this shows a generic native prompt, we recommend instead using an In-App Message to prompt for notification permission (See step 6) to better communicate to your users what notifications they will get.
+  //   OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
+  //     console.log("User accepted notifications: " + accepted);
+  //   });
+  // }
+  doLogout() {
     this.cart.doLogout();
   }
 }

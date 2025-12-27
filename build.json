@@ -1,0 +1,11 @@
+{
+  "android": {
+    "release": {
+      "keystore": "upload.jks",
+      "storePassword": "ks~jk4_3]gDRJ9d",
+      "alias": "key0",
+      "password": "ks~jk4_3]gDRJ9d",
+      "keystoreType": "jks"
+    }
+  }
+}

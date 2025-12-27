@@ -44,7 +44,7 @@ export class EditadresPage implements OnInit {
 
   }
 
-  private validationMessages = {
+  public validationMessages = {
     deliveryadr: [
       {type: 'required', message: 'Введите данные'},
       {type: 'minlength', message: 'Пока мало данных'},
@@ -66,7 +66,7 @@ export class EditadresPage implements OnInit {
       {type: 'maxlength', message: 'Сильно большой текст!'}
     ],
   };
-  private changeadr: FormGroup;
+  public changeadr: FormGroup;
 
   ngOnInit() {
     console.log('this.params',this.params);

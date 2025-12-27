@@ -5,7 +5,7 @@
     <br>
   </div>
 
-  <div class="news ion-padding">
+  <div class="news ion-padding" *ngIf="itemPage">
     <div class="block-wrapper">
       <ion-slides pager="false" *ngIf="slides.length" [options]="slideOptions">
         <ion-slide tappable *ngFor="let slide of slides">

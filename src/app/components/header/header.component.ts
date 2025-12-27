@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
   @Input() backPath: string;
   @Input() backBtn: string = '';
 
-  private text: any;
-  private authorized = false;
+  public text: any;
+  public authorized = false;
   // private authorized1 = false;
   public username: any;
   public userid: any;

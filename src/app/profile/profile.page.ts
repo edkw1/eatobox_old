@@ -33,11 +33,11 @@ export class ProfilePage implements OnInit {
   public arrAddr:Array<any> = [];
   public nameTabPerson :string='Данные';
   public bonusval:string='';
-  private is_iiko = false;
-  private showAdr = false;
+  is_iiko = false;
+  showAdr = false;
   private is_bonus = false;
   constructor(
-    private api: ApiService,
+    public api: ApiService,
     private cart: CartService,
     public loadingController: LoadingController,
     public alertController: AlertController,
@@ -208,8 +208,8 @@ export class ProfilePage implements OnInit {
             console.log(response);
             if(response.hasOwnProperty('data')){
               if(response['data'].length){
-                
-              }                
+
+              }
             }
           });
           this.api.logout().then(async () => {
@@ -293,4 +293,6 @@ export class ProfilePage implements OnInit {
     });
     await alert.present();
   }
+
+  captureName(event: any) {}
 }
