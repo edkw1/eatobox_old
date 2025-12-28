@@ -624,11 +624,13 @@ getBonuses(){
       } else {
         id = key
       }
-      products.push({
-        id: id,
-        count: tmpDishes[key]['quantity'],
-        modifiers: tmpDishes[key]['modifiers']
-      });
+      if(tmpDishes[key]['quantity']){
+        products.push({
+          id: id,
+          count: tmpDishes[key]['quantity'],
+          modifiers: tmpDishes[key]['modifiers']
+        });
+      }
     }
     if(this.bonus.value.bonusvalform){
       dataOrder['bonus_count']=this.bonus.value.bonusvalform;

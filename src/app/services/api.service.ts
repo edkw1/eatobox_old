@@ -154,6 +154,7 @@ export class ApiService {
     })
   }
   public addApi(application,data,limit:number = 0) {
+    console.log('data', data);
     const headers = { 'content-type': 'application/json'}
     let params =
       {
