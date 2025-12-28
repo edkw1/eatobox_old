@@ -10,6 +10,8 @@ import {IonicSelectableComponent} from "ionic-selectable";
 import {Subscription} from "rxjs";
 import {PaymentType} from './payment-type.model';
 
+const AVAILABLE_TYPES = ['CASH', 'TRANS', 'CARD'];
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
@@ -35,9 +37,6 @@ export class CheckoutPage implements OnInit {
   private bonus: FormGroup;
   private promo: FormGroup;
   private dopinfo: FormGroup;
-  public sposobi:Array<any> = [];
-  public cashPay:Array<any> = [];
-  public cardPay:Array<any> = [];
   public cities:Array<any> = [];
   public points:Array<any> = [];
   public streets:Array<any> = [];
@@ -177,22 +176,6 @@ export class CheckoutPage implements OnInit {
     if(this.config.defaultSettings.hasOwnProperty('max_bonuses')){
       this.max_bonuses = this.config.defaultSettings['max_bonuses'];
     }
-    this.paymentTypes = [];
-    if (this.config.defaultSettings.source.payment_card) {
-      this.paymentTypes.push({id: 'card', name: 'Картой курьеру'});
-    }
-    if (this.config.defaultSettings.source.payment_cash) {
-      this.paymentTypes.push({id: 'cash', name: 'Наличными курьеру'});
-    }
-    if (this.config.defaultSettings.source.payment_transfer) {
-      this.paymentTypes.push({id: 'transfer', name: 'Онлайн-оплата переводом'});
-    }
-    // if (this.config.defaultSettings.source.payment_robokassa) {
-    //   this.paymentTypes.push({id: 'robokassa', name: 'Онлайн-оплата'});
-    // }
-    // if (this.config.defaultSettings.source.payment_alfa) {
-    //   this.paymentTypes.push({id: 'alfa', name: 'Онлайн оплата'});
-    // }
     console.log('this.max_bonuses',this.max_bonuses);
     this.addedDishes = this.cart.getAddedDishes();
     this.cartSum = this.cart.getDishesSum();
@@ -205,16 +188,12 @@ export class CheckoutPage implements OnInit {
 
     this.api.getApi('iiko_payments',{}).then(result => {
       if(result.hasOwnProperty('data')){
-        this.sposobi = result['data'];
-        this.sposobi.forEach( value =>{
+        this.paymentTypes = result['data'].filter(type => AVAILABLE_TYPES.includes(type.article));
+        this.paymentTypes.forEach( value =>{
           if(value.article=='CASH'){
-            this.cashPay = value;
             this.money = this.formBuilder.group({
               moneyval: new FormControl(''),
             });
-          }
-          if(value.article=='CARD'){
-            this.cardPay = value;
           }
          console.log(value);
         });
@@ -233,18 +212,12 @@ export class CheckoutPage implements OnInit {
       delivery: new FormControl('2', Validators.required),
     });
     this.sklad = this.formBuilder.group({});
-    if(this.sposobi){
+    if(this.paymentTypes){
       this.oplata = this.formBuilder.group({
         varpay: new FormControl('', Validators.required),
       });
       // this.oplata.controls.sposoboplat.reset();
-      if(this.cashPay){
-        // this.oplata.controls.varpay.reset('1');
-        // this.money.setControl('moneyval', new FormControl('', Validators.compose([])));
-      }
     }
-
-
 
     this.dopinfo = this.formBuilder.group({
       // dopname: new FormControl('', [Validators.maxLength(25)]),
@@ -454,9 +427,9 @@ getBonuses(){
   // };
   onMoneyRadio(event) {
     if (event != undefined) {
-      this.sposoboplat = event.detail.value;
+      this.sposoboplat = event.detail.value.article;
       console.log('this.money',this.money);
-      if (this.sposoboplat == 'cash') {
+      if (this.sposoboplat == 'CASH') {
         this.money.setControl('moneyval', new FormControl('', Validators.compose([])));
       } else {
         this.money.removeControl('moneyval');
@@ -608,9 +581,9 @@ getBonuses(){
       dataOrder['iiko_cashbox_id'] = this.sklad.value.pointname;
 
     }
-    dataOrder['payment'] = this.oplata.value.varpay;
+    dataOrder['iiko_payment_id'] = this.oplata.value.varpay.id;
 
-    if(this.oplata.value.varpay=='cash'){
+    if(this.oplata.value.varpay=='CASH'){
       dataOrder['comment'] = this.money.value.moneyval ? dataOrder['comment'] + '; Сдача с' + this.money.value.moneyval : dataOrder['comment'];
     }
     // let tmpDishes = this.cart.getAddedDishes();
@@ -738,7 +711,7 @@ getBonuses(){
       dataOrder['iiko_cashbox_id'] = this.sklad.value.pointname;
 
     }
-    dataOrder['payment'] = this.oplata.value.varpay;
+    dataOrder['iiko_payment_id'] = this.oplata.value.varpay.id;
 
     // if(this.oplata.value.varpay=='1'){
     //   dataOrder['comment'] = this.money.value.moneyval ? dataOrder['comment'] + '; Сдача с' + this.money.value.moneyval : dataOrder['comment'];

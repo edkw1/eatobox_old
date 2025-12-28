@@ -129,7 +129,7 @@ export class CartService {
          if(this.config.defaultSettings['is_iiko']){
            this.cities.forEach((item) => {
              this.api.getApi('iiko_streets',{'city_id' : item['id'],'limit': 0}).then(result => {
-               // console.log('streets', result);
+                console.log('streets', result);
                if(result.hasOwnProperty('data')){
                  item['street'] = result['data'];
                }

@@ -1,4 +1,5 @@
 export interface PaymentType {
-  id: string;
-  name: string;
+  id: number;
+  title: string;
+  article: string;
 }

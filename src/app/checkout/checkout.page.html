@@ -254,8 +254,8 @@
           <div class="ion-padding-end" *ngIf="oplatashow">
             <ion-radio-group (ionChange)="onMoneyRadio($event)" formControlName="varpay" [required]="true">
               <ion-item lines="none" *ngFor="let paymentType of paymentTypes">
-                <ion-label>{{paymentType.name}}</ion-label>
-                <ion-radio slot="start" [value]="paymentType.id"></ion-radio>
+                <ion-label>{{paymentType.title}}</ion-label>
+                <ion-radio slot="start" [value]="paymentType"></ion-radio>
               </ion-item>
             </ion-radio-group>
             <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.varpay">
@@ -268,7 +268,7 @@
         </form>
 
         <form *ngIf="money" [formGroup]="money">
-          <ion-col size="12" *ngIf="sposoboplat==='cash'">
+          <ion-col size="12" *ngIf="sposoboplat==='CASH'">
             <ion-input placeholder="Требуется сдача с" formControlName="moneyval" inputmode="text"
                        maxlength="20" type="text"></ion-input>
             <div class="ion-padding-horizontal errormess" *ngFor="let validation of validationMessages.moneyval">
