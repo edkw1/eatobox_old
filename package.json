@@ -89,7 +89,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-app-name": {
-        "APP_NAME": "НориМи"
+        "APP_NAME": "Siesta"
       }
     },
     "platforms": [
