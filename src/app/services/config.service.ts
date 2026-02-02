@@ -40,7 +40,7 @@ export class ConfigService {
             'company_title': result['data']['company_title'],
             'support_email': result['data']['support_email'],
             'is_iiko': result['data']['is_iiko'],
-            'is_bonus': result['data']['is_iiko'],
+            'is_bonus': result['data']['is_bonus'] ?? true,
             'copyright': result['data']['copyright'],
             'delivery_price': result['data']['delivery_price'],
             'order_price_for_free_delivery': result['data']['order_price_for_free_delivery'],
