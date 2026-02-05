@@ -613,20 +613,20 @@ getBonuses(){
     }
     dataOrder['products']=products;
     // console.log("PRODUCTS", products);
-    // this.api.addApi('orders',dataOrder)
-      new Promise((resolve) => {
-        resolve(
-          JSON.parse("{\n" +
-            "    \"status\": 200,\n" +
-            "    \"data\": {\n" +
-            "        \"payment_url\": \"https:\\/\\/payment.alfabank.ru\\/payment\\/merchants\\/ecom2\\/payment_ru.html?mdOrder=01c1770d-02a6-71fc-b333-6ea802b490b7\",\n" +
-            "        \"success_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-detail\\/304?order_id=304\",\n" +
-            "        \"error_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-error\\/304?order_id=304\"\n" +
-            "    },\n" +
-            "    \"detail\": []\n" +
-            "}")
-        );
-      })
+    this.api.addApi('orders',dataOrder)
+//       new Promise((resolve) => {
+//         resolve(
+//           JSON.parse("{\n" +
+//             "    \"status\": 200,\n" +
+//             "    \"data\": {\n" +
+//             "        \"payment_url\": \"https:\\/\\/payment.alfabank.ru\\/payment\\/merchants\\/ecom2\\/payment_ru.html?mdOrder=01c1770d-02a6-71fc-b333-6ea802b490b7\",\n" +
+//             "        \"success_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-detail\\/304?order_id=304\",\n" +
+//             "        \"error_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-error\\/304?order_id=304\"\n" +
+//             "    },\n" +
+//             "    \"detail\": []\n" +
+//             "}")
+//         );
+//       })
       .then((result: any) => {
       console.log('ORDER',result);
       if(result.hasOwnProperty('data')&& result['data']){
@@ -828,8 +828,8 @@ getBonuses(){
       const browser = this.iab.create(url, '_blank');
       browser.on('loadstart').subscribe(event => {
         console.log('loadstart', event);
-        // if (event.url.includes('order-detail')) {
-        if (event.url.includes('order-error')) {
+        if (event.url.includes('order-detail')) {
+//         if (event.url.includes('order-error')) {
           browser.close();
           this.api.updateApi('orders', {id: orderId, is_payed: true}).then((response)=> {
             console.log(response);
@@ -840,8 +840,8 @@ getBonuses(){
             }
             this.navCtrl.navigateRoot('/');
           });
-        // } else if (event.url.includes('order-error')) {
-        } else if (event.url.includes('order-detail')) {
+        } else if (event.url.includes('order-error')) {
+//         } else if (event.url.includes('order-detail')) {
           browser.close();
           this.api.alertMessage('Искренне сожалеем,', '' +
             'произошла ошибка при оформлении заказа. Попробуйте чуть позже.');
