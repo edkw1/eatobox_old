@@ -21,6 +21,7 @@
     "@angular/router": "^14.0.0",
     "@awesome-cordova-plugins/app-version": "^6.7.0",
     "@awesome-cordova-plugins/core": "^6.9.0",
+    "@awesome-cordova-plugins/in-app-browser": "^6.7.0",
     "@awesome-cordova-plugins/splash-screen": "^6.7.0",
     "@awesome-cordova-plugins/status-bar": "^6.7.0",
     "@ionic-native/core": "^5.36.0",
@@ -57,6 +58,7 @@
     "cordova-plugin-app-name": "^1.0.7",
     "cordova-plugin-app-version": "^0.1.14",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-inappbrowser": "^6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -90,7 +92,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-app-name": {
         "APP_NAME": "Siesta"
-      }
+      },
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",
