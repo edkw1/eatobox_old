@@ -825,7 +825,7 @@ getBonuses(){
     const orderId = successUrl.searchParams.get('order_id');
 
     if (this.platform.is('cordova')) {
-      const browser = this.iab.create(url);
+      const browser = this.iab.create(url, '_blank');
       browser.on('loadstart').subscribe(event => {
         console.log('loadstart', event);
         // if (event.url.includes('order-detail')) {
