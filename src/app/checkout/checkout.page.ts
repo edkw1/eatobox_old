@@ -1,16 +1,17 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../services/api.service';
 import {CartService} from '../services/cart.service';
-import {AlertController, IonSelect, NavController} from '@ionic/angular';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AlertController, IonSelect, NavController, Platform} from '@ionic/angular';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventsService} from '../services/events.service';
 import {Storage} from '@ionic/storage-angular';
-import {ConfigService} from "../services/config.service";
-import {IonicSelectableComponent} from "ionic-selectable";
-import {Subscription} from "rxjs";
+import {ConfigService} from '../services/config.service';
+import {IonicSelectableComponent} from 'ionic-selectable';
+import {Subscription} from 'rxjs';
 import {PaymentType} from './payment-type.model';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
-const AVAILABLE_TYPES = ['CASH', 'TRANS', 'CARD'];
+const AVAILABLE_TYPES = ['CASH', 'TRANS', 'CARD', 'ALFA'];
 
 @Component({
   selector: 'app-checkout',
@@ -69,6 +70,8 @@ export class CheckoutPage implements OnInit {
     public events: EventsService,
     private storage: Storage,
     private config: ConfigService,
+    private iab: InAppBrowser,
+    private platform: Platform
   ) {
 
     this.storage.get('user').then((res)=>{
@@ -583,7 +586,7 @@ getBonuses(){
     }
     dataOrder['iiko_payment_id'] = this.oplata.value.varpay.id;
 
-    if(this.oplata.value.varpay=='CASH'){
+    if(this.oplata.value.varpay.article==='CASH'){
       dataOrder['comment'] = this.money.value.moneyval ? dataOrder['comment'] + '; Сдача с' + this.money.value.moneyval : dataOrder['comment'];
     }
     // let tmpDishes = this.cart.getAddedDishes();
@@ -610,11 +613,28 @@ getBonuses(){
     }
     dataOrder['products']=products;
     // console.log("PRODUCTS", products);
-    this.api.addApi('orders',dataOrder).then(result => {
+    // this.api.addApi('orders',dataOrder)
+      new Promise((resolve) => {
+        resolve(
+          JSON.parse("{\n" +
+            "    \"status\": 200,\n" +
+            "    \"data\": {\n" +
+            "        \"payment_url\": \"https:\\/\\/payment.alfabank.ru\\/payment\\/merchants\\/ecom2\\/payment_ru.html?mdOrder=01c1770d-02a6-71fc-b333-6ea802b490b7\",\n" +
+            "        \"success_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-detail\\/304?order_id=304\",\n" +
+            "        \"error_url\": \"https:\\/\\/xn--h1aalcfm.xn--p1ai\\/order-error\\/304?order_id=304\"\n" +
+            "    },\n" +
+            "    \"detail\": []\n" +
+            "}")
+        );
+      })
+      .then((result: any) => {
       console.log('ORDER',result);
       if(result.hasOwnProperty('data')&& result['data']){
-        this.api.alertMessage('Спасибо!', '' +
-          'Номер заказа '+result['data']);
+        if (this.oplata.value.varpay.article==='ALFA') {
+          this.openUrl(result.data);
+        } else {
+          this.api.alertMessage('Спасибо!', 'Номер заказа ' + result['data']);
+        }
       } else {
         this.api.alertMessage('Искренне сожалеем,', '' +
           'произошла ошибка при оформлении заказа. Попробуйте чуть позже.');
@@ -797,6 +817,39 @@ getBonuses(){
       ]
     });
     await alert.present();
+  }
+
+  openUrl(data: any) {
+    const url = data.payment_url;
+    const successUrl = new URL(data.success_url);
+    const orderId = successUrl.searchParams.get('order_id');
+
+    if (this.platform.is('cordova')) {
+      const browser = this.iab.create(url);
+      browser.on('loadstart').subscribe(event => {
+        console.log('loadstart', event);
+        // if (event.url.includes('order-detail')) {
+        if (event.url.includes('order-error')) {
+          browser.close();
+          this.api.updateApi('orders', {id: orderId, is_payed: true}).then((response)=> {
+            console.log(response);
+            if(response.hasOwnProperty('data') && response['data']){
+              this.api.alertMessage('Спасибо!', 'Номер заказа ' + orderId);
+            } else {
+              this.api.alertMessage('Искренне сожалеем,', 'произошла ошибка. Попробуйте чуть позже.');
+            }
+            this.navCtrl.navigateRoot('/');
+          });
+        // } else if (event.url.includes('order-error')) {
+        } else if (event.url.includes('order-detail')) {
+          browser.close();
+          this.api.alertMessage('Искренне сожалеем,', '' +
+            'произошла ошибка при оформлении заказа. Попробуйте чуть позже.');
+        }
+      });
+    } else {
+      window.open(url, '_blank');
+    }
   }
 
 }
