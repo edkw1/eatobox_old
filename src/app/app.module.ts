@@ -12,6 +12,7 @@ import { IonicStorageModule } from "@ionic/storage-angular";
 import {AppVersion} from "@awesome-cordova-plugins/app-version/ngx";
 import { DatePipe } from '@angular/common';
 import {IonicSelectableModule} from 'ionic-selectable';
+import {InAppBrowser} from "@awesome-cordova-plugins/in-app-browser/ngx";
 
 // import {RemoveCommaPipe} from "./pipes/removecomma.pipe";
 
@@ -30,6 +31,7 @@ import {IonicSelectableModule} from 'ionic-selectable';
     })
   ],
   providers: [
+    InAppBrowser,
     StatusBar,
     SplashScreen,
     AppVersion,
