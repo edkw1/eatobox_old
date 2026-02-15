@@ -149,7 +149,7 @@ export class HomePage {
         let test = [];
         this.catListParentTemp.forEach(valuecat => {
           if(valuecat['products_count']) {
-            return this.api.getApi('products', {'category_id': valuecat['id'], 'limit': 0}).then((result) => {
+            return this.api.getApi('products', {'category_id': valuecat['id'], 'limit': 0, 'is_view_in_site': true}).then((result) => {
               if (result.hasOwnProperty('data')) {
                 valuecat['products'] = result['data'];
                 // console.log('TYPE',typeof(valuecat['products']));
