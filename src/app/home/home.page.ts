@@ -128,7 +128,8 @@ export class HomePage {
   getCategory(){
     let dataorder =
       {
-        "limit": 0
+        "limit": 0,
+        'is_view_in_site': true
       };
     this.api.getApi("productCategories", dataorder, ).then((res) => {
       console.log('res', res);
