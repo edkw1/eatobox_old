@@ -23,40 +23,40 @@ export class CheckoutPage implements OnInit {
   @ViewChild('deliveryType', {static: false}) deliveryType: IonSelect;
 
   paymentTypes: PaymentType[] = [];
-  private authorized = false;
-  private isLoading = false;
-  private isLoadingPromo = false;
-  private isCancelPromo = false;
-  private priborshow = true;
+  authorized = false;
+  isLoading = false;
+  isLoadingPromo = false;
+  isCancelPromo = false;
+  priborshow = true;
   public oplatashow:boolean = false;
   portsSubscription: Subscription;
   cartSum = 0;
-  private deliv: FormGroup;
-  private sklad: FormGroup;
-  private oplata: FormGroup;
-  private money: FormGroup;
-  private bonus: FormGroup;
-  private promo: FormGroup;
-  private dopinfo: FormGroup;
+  deliv: FormGroup;
+  sklad: FormGroup;
+  oplata: FormGroup;
+  money: FormGroup;
+  bonus: FormGroup;
+  promo: FormGroup;
+  dopinfo: FormGroup;
   public cities:Array<any> = [];
   public points:Array<any> = [];
   public streets:Array<any> = [];
   public addedDishes :Array<any> = [];
-  private userphone: string = '';
-  private userid: string = '';
-  private sposoboplat: string = '';
-  private promouse: string = '';
-  // private sumCart: number = 0;
-  private adminUser = false;
-  private is_iiko = false;
-  private is_bonus = false;
-  private smsnumber: string = '';
+  userphone: string = '';
+  userid: string = '';
+  sposoboplat: string = '';
+  promouse: string = '';
+  // sumCart: number = 0;
+  adminUser = false;
+  is_iiko = false;
+  is_bonus = false;
+  smsnumber: string = '';
   public btnSmsShow = false;
   public btnKodSend = true;
   public smsSend = false;
   public btnSend = true;
   public btnSendPreload = false;
-  private userdelivery = '2';
+  userdelivery = '2';
   public bonusval:number;
   public max_bonuses = '';
   public max_bonusesval:number;
@@ -104,7 +104,7 @@ export class CheckoutPage implements OnInit {
       return port.title.toLowerCase().indexOf(text) !== -1;
     });
   }
-  private validationMessages: any = {
+  validationMessages: any = {
     phone: [
       {type: 'required', message: 'Телефон обязателен'},
       {type: 'minlength', message: 'Недостаточно цифр'},
